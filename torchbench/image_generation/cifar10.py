@@ -36,5 +36,6 @@ class CIFAR10:
         print(test_results)
 
         return BenchmarkResult(task="Image Generation", benchmark=cls, config=config, dataset=test_dataset,
-                               results=test_results, pytorch_hub_url=pytorch_hub_url, paper_model_name=paper_model_name,
-                               paper_arxiv_id=paper_arxiv_id, paper_pwc_id=paper_pwc_id)
+                               results=test_results, pytorch_hub_id=pytorch_hub_url,
+                               model=paper_model_name, arxiv_id=paper_arxiv_id,
+                               pwc_id=paper_pwc_id)
