@@ -1,0 +1,7 @@
+.idea
+*.pyc
+*.pyo
+venv
+build/
+dist/
+sotabench.egg-info
