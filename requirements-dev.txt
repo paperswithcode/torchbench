@@ -4,6 +4,6 @@ mkdocs-material
 numpy
 opencv-python>=4.1.0.25
 pycocotools>=2.0.0
-sotabench
+sotabenchapi
 torch>=1.1.0
 torchvision>=0.3.0

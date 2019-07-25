@@ -1,7 +1,7 @@
 from torch.utils.data import DataLoader
 import torchvision.datasets as datasets
 
-from sotabench.core import BenchmarkResult
+from sotabenchapi.core import BenchmarkResult
 from torchbench.utils import default_data_to_device, send_model_to_device
 
 from .transforms import Normalize, Resize, ToTensor, Compose

@@ -11,7 +11,7 @@ DESCRIPTION = "Easily benchmark Machine Learning models on selected tasks and da
 setup(
     name=PACKAGE_NAME,
     maintainer=AUTHOR,
-    version='0.0.1',
+    version='0.0.2',
     packages=[PACKAGE_NAME,
               'torchbench.datasets',
               'torchbench.image_classification',
@@ -23,5 +23,5 @@ setup(
     description=DESCRIPTION,
     long_description=DESCRIPTION,
     url=URL,
-    install_requires=['sotabench', 'torch', 'torchvision'],
+    install_requires=['sotabenchapi', 'torch', 'torchvision'],
 )

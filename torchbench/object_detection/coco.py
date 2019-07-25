@@ -1,7 +1,7 @@
 import os
 from torch.utils.data import DataLoader
 
-from sotabench.core import BenchmarkResult
+from sotabenchapi.core import BenchmarkResult
 from torchbench.datasets import CocoDetection
 from torchbench.utils import send_model_to_device
 

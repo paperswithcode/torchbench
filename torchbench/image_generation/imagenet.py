@@ -2,7 +2,7 @@ from torch.utils.data import DataLoader
 import torchvision.datasets as datasets
 import torchvision.transforms as transforms
 
-from sotabench.core import BenchmarkResult
+from sotabenchapi.core import BenchmarkResult
 from torchbench.utils import send_model_to_device
 
 from .utils import evaluate_image_generation_gan
