@@ -12,7 +12,7 @@ pip install git+ssh://github.com/paperswithcode/torchbench#egg=torchbench
 
 ## Usage
 
-This library can be used standalone or together with the [sotabench](https://sotabench.com) website. 
+This library can be used together with the [sotabench](https://sotabench.com) website, or standalone. Below we'll describe the usage with the sotabench website. 
 
 To submit your model to the sotabench website, do the following:
 
