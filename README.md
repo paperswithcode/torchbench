@@ -1,8 +1,6 @@
 # torchbench
 
-Easily benchmark PyTorch models on selected tasks and datasets.
-
-*Work in progress version*
+Easily benchmark PyTorch models on selected tasks and datasets. 
 
 ## Installation
 
@@ -12,24 +10,22 @@ Requires Python 3.6+.
 pip install git+ssh://github.com/paperswithcode/torchbench#egg=torchbench
 ```
 
-## Example Usage
+## Usage
 
-To benchmark a model create a `benchmark.py` file. For example, to benchmark the EfficientNet model on image classification on ImageNet:
+This library can be used standalone or together with the [sotabench](https://sotabench.com) website. 
+
+To submit your model to the sotabench website, do the following:
+
+1) Create a `benchmark.py` in the root of your repository. Below you can see the example `benchmark.py` file added to the torchvision library to test one of the models there:
 
 ```python
 from torchbench.image_classification import ImageNet
-import torch
+from torchvision.models.resnet import resnext101_32x8d
 import torchvision.transforms as transforms
 import PIL
 
-# load the model
-model = torch.hub.load('rwightman/gen-efficientnet-pytorch', 
-                       'efficientnet_b0', 
-                       pretrained=True)
-
-# transform ImageNet data into the format the model takes
-normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406], 
-                                 std=[0.229, 0.224, 0.225])
+# Define the transforms need to convert ImageNet data to expected model input
+normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
 input_transform = transforms.Compose([
     transforms.Resize(256, PIL.Image.BICUBIC),
     transforms.CenterCrop(224),
@@ -37,49 +33,31 @@ input_transform = transforms.Compose([
     normalize,
 ])
 
-# Run evaluation
+# Run the benchmark
 ImageNet.benchmark(
-    model=model,
-    input_transform=input_transform
+    model=resnext101_32x8d(pretrained=True),
+    paper_model_name='ResNeXt-101-32x8d',
+    paper_arxiv_id='1611.05431',
+    input_transform=input_transform,
+    batch_size=256,
+    num_gpu=1
 )
 
 ```
 
-You can run the evaluation by running the file:
+2) Run it locally on your machine to verify it works. 
 
 ```bash
 python benchmark.py
 ```
 
-### Comparing to a paper
+3) Login and connect your repository to [sotabench](https://sotabench.com/add-model). After you connect your repository the website will re-evaluate your model on every commit. 
 
-In the example above we've just evaluated the EfficientNet implementation, but we can also directly compare it to the results reported in the paper. 
+You can also use the library without the sotabench website, by simply ommitting step 3. In that case you also don't need to put in the paper details into the `benchmark()` method. 
 
-To compare to a paper, add the names of the model and paper into the benchmark call:
+## Contributing
 
-```python
-# Run evaluation and compare to paper
-ImageNet.benchmark(
-    model=model,
-    input_transform=input_transform,
-    paper_model_name='EfficientNet-B0',
-    paper_arxiv_id='1905.11946'
-)
-```
+All contributions welcome!
 
-We provide a free server to evaluate against paper results. Put your code into github, and then submit your github
-repository to [sotabench.com](https://sotabench.com) and it will be automatically built, record the results and compare 
-them to the paper. 
 
-## TODO docs
-
-[work in progress docs](docs/).
-
-- Tutorial: step-by-step with exploring benchmarks and transforms 
-- API reference manual
-- Settings and env variables, e.g. to capture all output in JSON:
-
-    ```bash
-    export SOTABENCH_STORE_FILENAME='evaluation.json'
-    ```
 
