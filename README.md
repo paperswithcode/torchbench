@@ -7,7 +7,7 @@ Easily benchmark PyTorch models on selected tasks and datasets.
 Requires Python 3.6+. 
 
 ```bash
-pip install git+ssh://github.com/paperswithcode/torchbench#egg=torchbench
+pip install torchbench
 ```
 
 ## Usage
@@ -16,7 +16,7 @@ This library can be used together with the [sotabench](https://sotabench.com) we
 
 Steps to benchmark your model on the sotabench website:
 
-1) Create a `benchmark.py` in the root of your repository. Below you can see the example `benchmark.py` file added to the torchvision library to test one of the models there:
+1) Create a `benchmark.py` in the root of your repository. Below you can see an example `benchmark.py` file added to the [torchvision](https://github.com/pytorch/vision/tree/master/torchvision) repository to test one of its constituent models:
 
 ```python
 from torchbench.image_classification import ImageNet
@@ -45,15 +45,17 @@ ImageNet.benchmark(
 
 ```
 
-2) Run it locally on your machine to verify it works. 
+2) Run it locally on your machine to verify it works:
 
 ```bash
 python benchmark.py
 ```
 
-3) Login and connect your repository to [sotabench](https://sotabench.com/add-model). After you connect your repository the website will re-evaluate your model on every commit, to ensure the model is working and results are up-to-date.  
+Alternatively you can run the same logic within a Notebook if that is your preferred workflow.
 
-You can also use the library without the sotabench website, by simply ommitting step 3. In that case you also don't need to put in the paper details into the `benchmark()` method. 
+3) Login and connect your repository to [sotabench](https://sotabench.com/add-model). After you connect your repository the website will re-evaluate your model on every commit, to ensure the model is working and results are up-to-date - including if you add additional models to the benchmark file.  
+
+You can also use the library without the sotabench website, by simply omitting step 3. In that case you also don't need to put in the paper details into the `benchmark()` method. 
 
 ## Benchmarks
 
@@ -63,11 +65,11 @@ Image Classification on ImageNet benchmark is implemented in the [torchbench.ima
 
 The benchmarking pipeline is as follows:
 
-1. The ImageNet validation dataset is loaded, if it doesn't exist locally it wil be downloaded
-2. Data is split into batches and transformed using the specified (or default) `input_transform`
-3. Transformed data is passed into the model as the only parameter
-4. Model output is recorded and if any `output_transform` are specified they are applied to the output
-5. The transformed output is compared to expected output and Top 1 and Top 5 accuracy calculated
+1. The model is put into evaluation mode and sent to the device
+2. The ImageNet validation dataset is loaded and transformed using `input_transform`
+3. The dataset is put into a DataLoader with options `batch_size` and `num_workers`
+4. The model and dataset are passed into an evaluation function for the task, along with an optional `model_output_transform` function that can transform the outputs after inference.
+5. The transformed output is compared to expected output and Top 1 and Top 5 accuracy are calculated
 
 Once the benchmarking is complete, the results are printed to the screen (and when run on sotabench.com automatically stored in the database). 
 
