@@ -55,9 +55,9 @@ python benchmark.py
 
 You can also use the library without the sotabench website, by simply ommitting step 3. In that case you also don't need to put in the paper details into the `benchmark()` method. 
 
-# Benchmarks
+## Benchmarks
 
-## Image Classification on ImageNet
+### Image Classification on ImageNet
 
 Image Classification on ImageNet benchmark is implemented in the [torchbench.image_classification.ImageNet](https://github.com/paperswithcode/torchbench/blob/master/torchbench/image_classification/imagenet.py) class. The implementation is using the [torchvision ImageNet dataset](https://pytorch.org/docs/stable/torchvision/datasets.html#imagenet). 
 
@@ -71,9 +71,9 @@ The benchmarking pipeline is as follows:
 
 Once the benchmarking is complete, the results are printed to the screen (and when run on sotabench.com automatically stored in the database). 
 
-### More benchmarks coming soon... 
+#### More benchmarks coming soon... 
 
-# Contributing
+## Contributing
 
 All contributions welcome!
 
