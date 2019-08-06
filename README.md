@@ -66,7 +66,7 @@ The benchmarking pipeline is as follows:
 1. The ImageNet validation dataset is loaded, if it doesn't exist locally it wil be downloaded
 2. Data is split into batches and transformed using the specified (or default) `input_transform`
 3. Transformed data is passed into the model as the only parameter
-4. The output is captured and if any `output_transform` are specified they are applied to the output
+4. Model output is recorded and if any `output_transform` are specified they are applied to the output
 5. The transformed output is compared with the labels from ImageNet and Top 1 and Top 5 accuracy calculated
 
 Once the benchmarking is complete, the results are printed to the screen (and when run on sotabench.com automatically stored in the database). 
