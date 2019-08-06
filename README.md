@@ -14,7 +14,7 @@ pip install git+ssh://github.com/paperswithcode/torchbench#egg=torchbench
 
 This library can be used together with the [sotabench](https://sotabench.com) website, or standalone. Below we'll describe the usage with the sotabench website. 
 
-To submit your model to the sotabench website, do the following:
+Steps to submit your model to the sotabench website:
 
 1) Create a `benchmark.py` in the root of your repository. Below you can see the example `benchmark.py` file added to the torchvision library to test one of the models there:
 
