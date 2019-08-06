@@ -63,7 +63,7 @@ You can also use the library without the sotabench website, by simply omitting s
 
 Image Classification on ImageNet benchmark is implemented in the [torchbench.image_classification.ImageNet](https://github.com/paperswithcode/torchbench/blob/master/torchbench/image_classification/imagenet.py) class. The implementation is using the [torchvision ImageNet dataset](https://pytorch.org/docs/stable/torchvision/datasets.html#imagenet). 
 
-The benchmarking pipeline is as follows:
+#### Benchmarking Pipeline
 
 1. The model is put into evaluation mode and sent to the device
 2. The ImageNet validation dataset is loaded and transformed using `input_transform`
@@ -73,7 +73,11 @@ The benchmarking pipeline is as follows:
 
 Once the benchmarking is complete, the results are printed to the screen (and when run on sotabench.com automatically stored in the database). 
 
-#### More benchmarks coming soon... 
+#### Expected Inputs/Outputs
+
+- Model `output` (following `model.forward()` and optionally `model_output_transform`)) should be a 2D `torch.Tensor` containing the model output; first dimension should be output for each example (length `batch_size`) and second dimension should be output for each class in ImageNet (length 1000).
+
+### More benchmarks coming soon... 
 
 ## Contributing
 
