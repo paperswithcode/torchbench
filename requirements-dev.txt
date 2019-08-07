@@ -1,9 +1,11 @@
-albumentations>=0.3.0
-mkdocs
-mkdocs-material
-numpy
-opencv-python>=4.1.0.25
-pycocotools>=2.0.0
-sotabenchapi
-torch>=1.1.0
-torchvision>=0.3.0
+-r requirements.txt
+black==19.3b0
+flake8==3.7.8
+pre-commit==1.18.0
+pydocstyle==4.0.0
+pytest==5.0.1
+pytest-cov==2.7.1
+recommonmark==0.5.0
+sphinx==2.1.2
+sphinx-rtd-theme==0.4.3
+twine==1.13.0
