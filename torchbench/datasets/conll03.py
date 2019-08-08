@@ -6,7 +6,8 @@ import os
 import re
 
 from torch.utils.data import Dataset
-from torchvision.datasets.utils import extract_archive
+
+from torchbench.utils import extract_archive
 
 
 class CoNLL2003(Dataset):

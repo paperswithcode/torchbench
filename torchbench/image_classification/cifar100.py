@@ -9,7 +9,7 @@ from .utils import evaluate_classification
 
 
 class CIFAR100:
-
+    """CIFAR 100 Dataset."""
     dataset = datasets.CIFAR100
     normalize = transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
     input_transform = transforms.Compose([transforms.ToTensor(), normalize])
