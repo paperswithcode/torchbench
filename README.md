@@ -75,7 +75,7 @@ Once the benchmarking is complete, the results are printed to the screen (and wh
 
 #### Expected Inputs/Outputs
 
-- Model `output` (following `model.forward()` and optionally `model_output_transform`)) should be a 2D `torch.Tensor` containing the model output; first dimension should be output for each example (length `batch_size`) and second dimension should be output for each class in ImageNet (length 1000).
+- Model `output` (following `model.forward()` and optionally `model_output_transform`) should be a 2D `torch.Tensor` containing the model output; first dimension should be output for each example (length `batch_size`) and second dimension should be output for each class in ImageNet (length 1000).
 
 ### More benchmarks coming soon... 
 
