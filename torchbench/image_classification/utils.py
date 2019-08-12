@@ -14,7 +14,7 @@ def evaluate_classification(model, test_loader, model_output_transform, send_dat
     end = time.time()
 
     with torch.no_grad():
-        for i, (input, target) in enumerate(tqdm(test_loader)):
+        for i, (input, target) in enumerate(tqdm.tqdm(test_loader)):
 
             input, target = send_data_to_device(input, target, device=device)
             output = model(input)
