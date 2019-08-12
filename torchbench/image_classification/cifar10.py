@@ -9,6 +9,7 @@ from .utils import evaluate_classification
 
 
 class CIFAR10:
+    """CIFAR 10 Dataset."""
 
     dataset = datasets.CIFAR10
     normalize = transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))

@@ -1,7 +1,22 @@
-.idea
-*.pyc
-*.pyo
-venv
+# Run artifacts
+__pycache__/
+*.py[cod]
+
+# Build artifacts
+torchbench.egg-info
 build/
 dist/
-sotabench.egg-info
+
+# Test artifacts
+.coverage
+
+# IDE Configuration
+.idea
+.vscode
+
+# Virtualenv
+.venv
+venv
+
+# Documentation artefacts
+docs/_build/

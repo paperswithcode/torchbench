@@ -1,10 +1,10 @@
-from torchvision.datasets.vision import VisionDataset
-from torchvision.datasets.utils import extract_archive
-from PIL import Image
-
 import os
-import os.path
 from os.path import dirname as up
+
+from PIL import Image
+from torchvision.datasets.vision import VisionDataset
+
+from torchbench.utils import extract_archive
 
 
 class CocoDetection(VisionDataset):
