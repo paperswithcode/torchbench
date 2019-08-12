@@ -23,5 +23,5 @@ setup(
     description=DESCRIPTION,
     long_description=DESCRIPTION,
     url=URL,
-    install_requires=['sotabenchapi', 'torch', 'torchvision'],
+    install_requires=['sotabenchapi', 'tqdm', 'torch', 'torchvision'],
 )
