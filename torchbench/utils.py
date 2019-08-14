@@ -1,7 +1,9 @@
 import os
 import gzip
+import hashlib
 import tarfile
 import zipfile
+import numpy as np
 
 import torch
 
@@ -114,3 +116,20 @@ def extract_archive(from_path, to_path=None, remove_finished=False):
 
     if remove_finished:
         os.remove(from_path)
+
+
+def calculate_run_hash(metrics: list, output: torch.Tensor):
+    """
+    Calculates the run hash for a given set of metrics and an output tensor of the model (calculate after
+    first batch)
+
+    :param metrics: list of metrics for the task and dataset
+    :param output: output from the model for a given batch of data
+
+    :return:
+    """
+
+    hash_list = metrics + np.round(output.cpu().numpy(), 3).tolist()
+    m = hashlib.md5()
+    m.update(str(hash_list).encode('utf-8'))
+    return m.hexdigest()

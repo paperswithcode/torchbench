@@ -1,9 +1,10 @@
+import os
 import time
 import tqdm
 import torch
 import torchvision
 
-from torchbench.utils import AverageMeter, accuracy
+from torchbench.utils import AverageMeter, accuracy, calculate_run_hash
 
 
 def evaluate_classification(model, test_loader, model_output_transform, send_data_to_device, device='cuda'):
@@ -29,10 +30,15 @@ def evaluate_classification(model, test_loader, model_output_transform, send_dat
             batch_time.update(time.time() - end)
             end = time.time()
 
+            if i == 0:  # for sotabench.com caching of evaluation
+                run_hash = calculate_run_hash([prec1, prec5], output)
+                if os.environ.get('SOTABENCH_CHECK'):
+                    break
+
     return {
         'Top 1 Accuracy': top1.avg / 100,
         'Top 5 Accuracy': top5.avg / 100
-    }
+    }, run_hash
 
 
 def check_metric_inputs(output, target, dataset, iteration_no):
