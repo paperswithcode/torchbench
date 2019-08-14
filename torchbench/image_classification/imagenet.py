@@ -137,7 +137,7 @@ class ImageNet:
             test_dataset = cls.dataset(data_root, split='val', transform=input_transform, target_transform=target_transform, download=False)
 
         test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False, num_workers=num_workers, pin_memory=True)
-        test_results = evaluate_classification(model=model, test_loader=test_loader,
+        test_results, run_hash = evaluate_classification(model=model, test_loader=test_loader,
                                                model_output_transform=model_output_transform,
                                                send_data_to_device=send_data_to_device, device=device)
 
@@ -146,4 +146,4 @@ class ImageNet:
         return BenchmarkResult(task="Image Classification", benchmark=cls, config=config, dataset=test_dataset,
                                results=test_results, pytorch_hub_id=pytorch_hub_url,
                                model=paper_model_name, arxiv_id=paper_arxiv_id,
-                               pwc_id=paper_pwc_id, paper_results=paper_results)
+                               pwc_id=paper_pwc_id, paper_results=paper_results, run_hash=run_hash)
