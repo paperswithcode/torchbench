@@ -130,6 +130,6 @@ def calculate_run_hash(metrics: list, output: torch.Tensor):
     """
 
     hash_list = metrics + np.round(output.cpu().numpy(), 3).tolist()
-    m = hashlib.md5()
+    m = hashlib.sha256()
     m.update(str(hash_list).encode('utf-8'))
     return m.hexdigest()
