@@ -3,6 +3,7 @@ import time
 import tqdm
 import torch
 import torchvision
+from sotabenchapi.client import get_public_sotabench_client
 
 from torchbench.utils import AverageMeter, accuracy, calculate_run_hash
 
@@ -34,6 +35,12 @@ def evaluate_classification(model, test_loader, model_output_transform, send_dat
                 run_hash = calculate_run_hash([prec1, prec5], output)
                 if os.environ.get('SOTABENCH_CHECK'):
                     break
+
+                # get the cached values from sotabench.com if available
+                client = get_public_sotabench_client()
+                cached_res = client.get_results_bu_run_hash(run_hash)
+                if cached_res:
+                    return cached_res, run_hash
 
     return {
         'Top 1 Accuracy': top1.avg / 100,
