@@ -40,6 +40,7 @@ def evaluate_classification(model, test_loader, model_output_transform, send_dat
                 client = get_public_sotabench_client()
                 cached_res = client.get_results_by_run_hash(run_hash)
                 if cached_res:
+                    print("No model change detected (using the first batch run_hash). Returning cached results.")
                     return cached_res, run_hash
 
     return {
