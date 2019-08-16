@@ -38,7 +38,7 @@ def evaluate_classification(model, test_loader, model_output_transform, send_dat
 
                 # get the cached values from sotabench.com if available
                 client = get_public_sotabench_client()
-                cached_res = client.get_results_bu_run_hash(run_hash)
+                cached_res = client.get_results_by_run_hash(run_hash)
                 if cached_res:
                     return cached_res, run_hash
 
