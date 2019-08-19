@@ -3,6 +3,7 @@ import time
 import tqdm
 import torch
 import torchvision
+from sotabenchapi.check import in_check_mode
 from sotabenchapi.client import get_public_sotabench_client
 
 from torchbench.utils import AverageMeter, accuracy, calculate_run_hash
@@ -33,7 +34,8 @@ def evaluate_classification(model, test_loader, model_output_transform, send_dat
 
             if i == 0:  # for sotabench.com caching of evaluation
                 run_hash = calculate_run_hash([prec1, prec5], output)
-                if os.environ.get('SOTABENCH_CHECK'):
+                # if we are in check model we don't need to go beyond the first batch
+                if in_check_mode():
                     break
 
                 # get the cached values from sotabench.com if available
