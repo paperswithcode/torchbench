@@ -2,7 +2,7 @@ from torch.utils.data import DataLoader
 import torchvision.datasets as datasets
 import torchvision.transforms as transforms
 
-from sotabenchapi.core import BenchmarkResult
+from sotabenchapi.core import BenchmarkResult, check_inputs
 from torchbench.utils import send_model_to_device
 
 from .utils import evaluate_image_generation_gan
@@ -15,6 +15,7 @@ class ImageNet:
     norm_std = [2 * p for p in [0.229, 0.224, 0.225]]
     normalize = transforms.Normalize(mean=norm_mean, std=norm_std)
     input_transform = transforms.Compose([transforms.ToTensor(), normalize])
+    task = "Image Generation"
 
     @classmethod
     def benchmark(cls, model, input_transform=None, target_transform=None, model_output_transform=None,
@@ -38,7 +39,8 @@ class ImageNet:
 
         print(test_results)
 
-        return BenchmarkResult(task="Image Generation", benchmark=cls, config=config, dataset=test_dataset,
+        return BenchmarkResult(task=cls.task, config=config, dataset=cls.dataset.__name__,
                                results=test_results, pytorch_hub_id=pytorch_hub_url,
                                model=paper_model_name, arxiv_id=paper_arxiv_id,
                                pwc_id=paper_pwc_id, paper_results=paper_results)
+

@@ -1,7 +1,7 @@
 from torch.utils.data import DataLoader
 import torchvision.datasets as datasets
 
-from sotabenchapi.core import BenchmarkResult
+from sotabenchapi.core import BenchmarkResult, check_inputs
 from torchbench.utils import default_data_to_device, send_model_to_device
 
 from .transforms import Normalize, Resize, ToTensor, Compose
@@ -17,6 +17,7 @@ class PASCALVOC:
     send_data_to_device = default_data_to_device
     collate_fn = default_seg_collate_fn
     model_output_transform = default_seg_output_transform
+    task = "Semantic Segmentation"
 
     @classmethod
     def benchmark(cls, model, dataset_year='2007', input_transform=None, target_transform=None, transforms=None,
@@ -52,7 +53,7 @@ class PASCALVOC:
                                              send_data_to_device=send_data_to_device, device=device)
         print(test_results)
 
-        return BenchmarkResult(task="Semantic Segmentation", benchmark=cls, config=config, dataset=test_dataset,
+        return BenchmarkResult(task=cls.task, config=config, dataset=cls.dataset.__name__,
                                results=test_results, pytorch_hub_id=pytorch_hub_url,
                                model=paper_model_name, arxiv_id=paper_arxiv_id,
                                pwc_id=paper_pwc_id, paper_results=paper_results)
