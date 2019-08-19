@@ -4,7 +4,7 @@ import tqdm
 import torch
 import torchvision
 from sotabenchapi.check import in_check_mode
-from sotabenchapi.client import get_public_sotabench_client
+from sotabenchapi.client import Client
 
 from torchbench.utils import AverageMeter, accuracy, calculate_run_hash
 
@@ -39,7 +39,7 @@ def evaluate_classification(model, test_loader, model_output_transform, send_dat
                     break
 
                 # get the cached values from sotabench.com if available
-                client = get_public_sotabench_client()
+                client = Client.public()
                 cached_res = client.get_results_by_run_hash(run_hash)
                 if cached_res:
                     print("No model change detected (using the first batch run_hash). Returning cached results.")
