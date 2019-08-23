@@ -1,4 +1,5 @@
 import os
+import sys
 import time
 import tqdm
 import torch
@@ -38,6 +39,8 @@ def evaluate_classification(model, test_loader, model_output_transform, send_dat
                 run_hash = calculate_run_hash([prec1, prec5], output)
                 # if we are in check model we don't need to go beyond the first batch
                 if in_check_mode():
+                    sys.stderr.flush()
+                    sys.stdout.flush()
                     iterator.close()
                     break
 
@@ -45,9 +48,14 @@ def evaluate_classification(model, test_loader, model_output_transform, send_dat
                 client = Client.public()
                 cached_res = client.get_results_by_run_hash(run_hash)
                 if cached_res:
+                    sys.stderr.flush()
+                    sys.stdout.flush()
                     iterator.close()
                     print("No model change detected (using the first batch run_hash). Returning cached results.")
                     return cached_res, run_hash
+
+            sys.stderr.flush()
+            sys.stdout.flush()
 
     return {
         'Top 1 Accuracy': top1.avg / 100,
