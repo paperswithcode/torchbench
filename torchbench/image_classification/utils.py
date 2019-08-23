@@ -16,8 +16,10 @@ def evaluate_classification(model, test_loader, model_output_transform, send_dat
 
     end = time.time()
 
+    iterator = tqdm.tqdm(test_loader)
+
     with torch.no_grad():
-        for i, (input, target) in enumerate(tqdm.tqdm(test_loader)):
+        for i, (input, target) in enumerate(iterator):
 
             input, target = send_data_to_device(input, target, device=device)
             output = model(input)
@@ -36,12 +38,14 @@ def evaluate_classification(model, test_loader, model_output_transform, send_dat
                 run_hash = calculate_run_hash([prec1, prec5], output)
                 # if we are in check model we don't need to go beyond the first batch
                 if in_check_mode():
+                    iterator.close()
                     break
 
                 # get the cached values from sotabench.com if available
                 client = Client.public()
                 cached_res = client.get_results_by_run_hash(run_hash)
                 if cached_res:
+                    iterator.close()
                     print("No model change detected (using the first batch run_hash). Returning cached results.")
                     return cached_res, run_hash
 
