@@ -47,12 +47,14 @@ def accuracy(output, target, topk=(1,)):
 
 
 def default_data_to_device(
-    input, target, device: str = "cuda", non_blocking: bool = True
+    input, target=None, device: str = "cuda", non_blocking: bool = True
 ):
     """Sends data output from a PyTorch Dataloader to the device."""
 
     input = input.to(device=device, non_blocking=non_blocking)
-    target = target.to(device=device, non_blocking=non_blocking)
+
+    if target is not None:
+        target = target.to(device=device, non_blocking=non_blocking)
 
     return input, target
 
