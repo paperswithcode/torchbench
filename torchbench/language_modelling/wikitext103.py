@@ -43,7 +43,7 @@ class WikiText103:
                                    encoder=encoder, download=True)
         valid_loader = DataLoader(valid_dataset, batch_size=batch_size, shuffle=False,
                                  num_workers=num_workers, pin_memory=True)
-        valid_results = evaluate_language_model(model=model, model_output_transform=model_output_transform,
+        valid_results, valid_run_hash = evaluate_language_model(model=model, model_output_transform=model_output_transform,
                                                send_data_to_device=cls.send_data_to_device,
                                                test_loader=valid_loader, device=device)
 
