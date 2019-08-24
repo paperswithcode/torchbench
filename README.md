@@ -1,4 +1,4 @@
-<center><img width=500 src="/docs/images/torchbench.png"></center>
+<p align="center"><img width=500 src="/docs/images/torchbench.png"></p>
 
 Easily benchmark PyTorch models on selected tasks and datasets. 
 
