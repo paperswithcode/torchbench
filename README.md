@@ -1,4 +1,4 @@
-# torchbench
+<p align="center"><img width=500 src="/docs/images/torchbench.png"></p>
 
 Easily benchmark PyTorch models on selected tasks and datasets. 
 
@@ -16,7 +16,7 @@ This library can be used together with the [sotabench](https://sotabench.com) we
 
 Steps to benchmark your model on the sotabench website:
 
-1) Create a `benchmark.py` in the root of your repository. Below you can see an example `benchmark.py` file added to the [torchvision](https://github.com/pytorch/vision/tree/master/torchvision) repository to test one of its constituent models:
+1) Create a `sotabench.py` in the root of your repository. Below you can see an example `sotabench.py` file added to the [torchvision](https://github.com/pytorch/vision/tree/master/torchvision) repository to test one of its constituent models:
 
 ```python
 from torchbench.image_classification import ImageNet
@@ -48,7 +48,7 @@ ImageNet.benchmark(
 2) Run it locally on your machine to verify it works:
 
 ```bash
-python benchmark.py
+python sotabench.py
 ```
 
 Alternatively you can run the same logic within a Notebook if that is your preferred workflow.
@@ -61,21 +61,44 @@ You can also use the library without the sotabench website, by simply omitting s
 
 ### Image Classification on ImageNet
 
-Image Classification on ImageNet benchmark is implemented in the [torchbench.image_classification.ImageNet](https://github.com/paperswithcode/torchbench/blob/master/torchbench/image_classification/imagenet.py) class. The implementation is using the [torchvision ImageNet dataset](https://pytorch.org/docs/stable/torchvision/datasets.html#imagenet). 
+Image Classification on ImageNet benchmark is implemented in the [image_classification.ImageNet](https://github.com/paperswithcode/torchbench/blob/master/torchbench/image_classification/imagenet.py) class.
 
 #### Benchmarking Pipeline
 
 1. The model is put into evaluation mode and sent to the device
 2. The ImageNet validation dataset is loaded and transformed using `input_transform`
 3. The dataset is put into a DataLoader with options `batch_size` and `num_workers`
-4. The model and dataset are passed into an evaluation function for the task, along with an optional `model_output_transform` function that can transform the outputs after inference.
+4. The model and dataset are passed into an evaluation function for the task, along with an optional `model_output_transform` function that can transform the outputs after inference
 5. The transformed output is compared to expected output and Top 1 and Top 5 accuracy are calculated
-
-Once the benchmarking is complete, the results are printed to the screen (and when run on sotabench.com automatically stored in the database). 
 
 #### Expected Inputs/Outputs
 
 - Model `output` (following `model.forward()` and optionally `model_output_transform`) should be a 2D `torch.Tensor` containing the model output; first dimension should be output for each example (length `batch_size`) and second dimension should be output for each class in ImageNet (length 1000).
+
+### Language Modelling on WikiText-103
+
+Language Modelling on WikiText-103 benchmark is implemented in the [language_modelling.WikiText103](https://github.com/paperswithcode/torchbench/blob/master/torchbench/language_modelling/wikitext103.py) class. 
+
+#### Benchmarking Pipeline
+
+1. The model is put into evaluation mode and sent to the device
+2. The WikiText-103 text dataset is loaded and:
+- encoeded using `encoder`: this should be an object with an `encode` method that takes in raw text and produces a 
+list of tokens, i.e. `token_list = encoder.encode(rawtext)`. This is the same interface as 
+in [Hugging Face](https://github.com/huggingface/pytorch-transformers).
+
+- takes a context length `context_length` (default 1024 - same as GPT-2).
+3. The dataset is put into a DataLoader with options `batch_size` and `num_workers`
+4. The model and dataset are passed into an evaluation function for the task, along with an optional `model_output_transform` function that can transform the outputs after inference. 
+The expected output is logits.
+5. The logits and labels are shifted to perform predictive language modelling, and the Perplexity metric is calculated.
+
+#### Expected Inputs/Outputs
+
+- Model `output` (following `model.forward()` and optionally `model_output_transform`) should be a 3D `torch.Tensor` 
+containing the model output; first dimension should be output for each example (length `batch_size`), second 
+dimension should be output for each token (length=`context_length`), third dimension should be output for each vocab
+(length = vocab size). This is the same interface as in [Hugging Face](https://github.com/huggingface/pytorch-transformers).
 
 ### More benchmarks coming soon... 
 

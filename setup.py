@@ -40,6 +40,7 @@ setup(
         "torchbench.datasets",
         "torchbench.image_classification",
         "torchbench.image_generation",
+        "torchbench.language_modelling",
         "torchbench.object_detection",
         "torchbench.semantic_segmentation",
     ],

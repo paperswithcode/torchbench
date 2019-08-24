@@ -246,7 +246,7 @@ def evaluate_image_generation_gan(model, model_output_transform, test_loader, de
                 output = torch.cat((output, partial_output))
 
     if model_output_transform is not None:
-        output = model_output_transform(output, target=None, device=device)
+        output = model_output_transform(output, target=None, device=device, model=model)
 
     # Set up dataloader
     sample_dataloader = torch.utils.data.DataLoader(output, batch_size=test_loader.batch_size)

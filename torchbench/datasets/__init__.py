@@ -4,3 +4,4 @@ from .cityscapes import Cityscapes
 from .coco import CocoDetection
 from .conll03 import CoNLL2003
 from .pascalcontext import PASCALContext
+from .wikitext103 import WikiText103
