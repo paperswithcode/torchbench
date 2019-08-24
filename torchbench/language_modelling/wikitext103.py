@@ -27,20 +27,37 @@ class WikiText103:
         if not encoder:
             raise ValueError('Please provide an encoder to evaluate on this benchmark!')
 
+        # Test Split
+
         test_dataset = cls.dataset(data_root, split='test', context_length=context_length,
                                    encoder=encoder, download=True)
         test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False,
                                  num_workers=num_workers, pin_memory=True)
-        test_results = evaluate_language_model(model=model, model_output_transform=model_output_transform,
+        test_results, run_hash = evaluate_language_model(model=model, model_output_transform=model_output_transform,
                                                send_data_to_device=cls.send_data_to_device,
                                                test_loader=test_loader, device=device)
 
-        print(test_results)
+        # Valid Split
+
+        valid_dataset = cls.dataset(data_root, split='valid', context_length=context_length,
+                                   encoder=encoder, download=True)
+        valid_loader = DataLoader(valid_dataset, batch_size=batch_size, shuffle=False,
+                                 num_workers=num_workers, pin_memory=True)
+        valid_results = evaluate_language_model(model=model, model_output_transform=model_output_transform,
+                                               send_data_to_device=cls.send_data_to_device,
+                                               test_loader=valid_loader, device=device)
+
+        # Get final results
+        if 'Test perplexity' in test_results:
+            final_results = valid_results  # hashed
+        else:
+            final_results = {
+                'Test perplexity': test_results['Perplexity'],
+                'Validation perplexity': valid_results['Perplexity']}
+
+        print(final_results)
 
         return BenchmarkResult(task=cls.task, config=config, dataset=cls.dataset.__name__,
-                               results=test_results, pytorch_hub_id=pytorch_hub_url,
+                               results=final_results, pytorch_hub_id=pytorch_hub_url,
                                model=paper_model_name, arxiv_id=paper_arxiv_id,
-                               pwc_id=paper_pwc_id, paper_results=paper_results)
-
-
-
+                               pwc_id=paper_pwc_id, paper_results=paper_results, run_hash=run_hash)
