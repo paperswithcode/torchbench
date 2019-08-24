@@ -17,7 +17,7 @@ def evaluate_classification(model, test_loader, model_output_transform, send_dat
 
     end = time.time()
 
-    iterator = tqdm.tqdm(test_loader, file=sys.stdout, desc="Evaluation")
+    iterator = tqdm.tqdm(test_loader, desc="Evaluation")
 
     with torch.no_grad():
         for i, (input, target) in enumerate(iterator):

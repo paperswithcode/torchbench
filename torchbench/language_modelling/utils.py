@@ -12,7 +12,7 @@ from torchbench.utils import calculate_run_hash
 def evaluate_language_model(model, test_loader, model_output_transform, send_data_to_device, device='cuda'):
     n_steps, eval_loss = 0, 0
 
-    iterator = tqdm.tqdm(test_loader, file=sys.stdout, desc="Evaluation")
+    iterator = tqdm.tqdm(test_loader, desc="Evaluation")
 
     with torch.no_grad():
         for i, labels in enumerate(iterator):
