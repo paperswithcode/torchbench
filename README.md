@@ -1,5 +1,4 @@
-# torchbench
-![Torchbench Logo](/docs/images/torchbench.png)
+<center><img width=500 src="/docs/images/torchbench.png"></center>
 
 Easily benchmark PyTorch models on selected tasks and datasets. 
 
@@ -62,14 +61,14 @@ You can also use the library without the sotabench website, by simply omitting s
 
 ### Image Classification on ImageNet
 
-Image Classification on ImageNet benchmark is implemented in the [torchbench.image_classification.ImageNet](https://github.com/paperswithcode/torchbench/blob/master/torchbench/image_classification/imagenet.py) class. The implementation is using the [torchvision ImageNet dataset](https://pytorch.org/docs/stable/torchvision/datasets.html#imagenet). 
+Image Classification on ImageNet benchmark is implemented in the [image_classification.ImageNet](https://github.com/paperswithcode/torchbench/blob/master/torchbench/image_classification/imagenet.py) class.
 
 #### Benchmarking Pipeline
 
 1. The model is put into evaluation mode and sent to the device
 2. The ImageNet validation dataset is loaded and transformed using `input_transform`
 3. The dataset is put into a DataLoader with options `batch_size` and `num_workers`
-4. The model and dataset are passed into an evaluation function for the task, along with an optional `model_output_transform` function that can transform the outputs after inference.
+4. The model and dataset are passed into an evaluation function for the task, along with an optional `model_output_transform` function that can transform the outputs after inference
 5. The transformed output is compared to expected output and Top 1 and Top 5 accuracy are calculated
 
 #### Expected Inputs/Outputs
@@ -78,13 +77,13 @@ Image Classification on ImageNet benchmark is implemented in the [torchbench.ima
 
 ### Language Modelling on WikiText-103
 
-Language Modelling on WikiText-103 benchmark is implemented in the [torchbench.language_modelling.WikiText103](https://github.com/paperswithcode/torchbench/blob/master/torchbench/language_modelling/wikitext103.py) class. The implementation is using the [torchvision ImageNet dataset](https://pytorch.org/docs/stable/torchvision/datasets.html#imagenet). 
+Language Modelling on WikiText-103 benchmark is implemented in the [language_modelling.WikiText103](https://github.com/paperswithcode/torchbench/blob/master/torchbench/language_modelling/wikitext103.py) class. 
 
 #### Benchmarking Pipeline
 
 1. The model is put into evaluation mode and sent to the device
 2. The WikiText-103 text dataset is loaded and:
-- encoder using `encoder`: this should be an object with an `encode` method that takes in raw text and produces a 
+- encoeded using `encoder`: this should be an object with an `encode` method that takes in raw text and produces a 
 list of tokens, i.e. `token_list = encoder.encode(rawtext)`. This is the same interface as 
 in [Hugging Face](https://github.com/huggingface/pytorch-transformers).
 
