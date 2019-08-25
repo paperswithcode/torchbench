@@ -19,7 +19,7 @@ def coco_collate_fn(batch):
     return tuple(zip(*batch))
 
 
-def coco_output_transform(output, target):
+def coco_output_transform(output, target, device='cuda', model=None):
     output = [{k: v.to('cpu') for k, v in t.items()} for t in output]
     return output, target
 
@@ -63,7 +63,7 @@ class COCO:
         test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False, num_workers=num_workers, pin_memory=True,
                                  collate_fn=collate_fn)
         test_loader.no_classes = 91  # Number of classes for COCO Detection
-        test_results = evaluate_detection_coco(model=model, test_loader=test_loader, model_output_transform=model_output_transform,
+        test_results, run_hash = evaluate_detection_coco(model=model, test_loader=test_loader, model_output_transform=model_output_transform,
                                                send_data_to_device=send_data_to_device, device=device)
 
         print(test_results)
@@ -71,4 +71,4 @@ class COCO:
         return BenchmarkResult(task=cls.task, config=config, dataset=cls.dataset.__name__,
                                results=test_results, pytorch_hub_id=pytorch_hub_url,
                                model=paper_model_name, arxiv_id=paper_arxiv_id,
-                               pwc_id=paper_pwc_id, paper_results=paper_results)
+                               pwc_id=paper_pwc_id, paper_results=paper_results, run_hash=run_hash)

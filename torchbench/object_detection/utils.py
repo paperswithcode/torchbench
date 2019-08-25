@@ -2,7 +2,12 @@ import numpy as np
 import os
 from PIL import Image
 import torch
+import tqdm
+from torchbench.datasets import CocoDetection
 import torchvision
+from sotabenchapi.check import in_check_mode
+from sotabenchapi.client import Client
+from torchbench.utils import AverageMeter, accuracy, calculate_run_hash
 
 from pycocotools import mask as coco_mask
 from pycocotools.coco import COCO
@@ -64,11 +69,11 @@ def convert_to_coco_api(ds):
 
 def get_coco_api_from_dataset(dataset):
     for _ in range(10):
-        if isinstance(dataset, torchvision.datasets.CocoDetection):
+        if isinstance(dataset, CocoDetection):
             break
         if isinstance(dataset, torch.utils.data.Subset):
             dataset = dataset.dataset
-    if isinstance(dataset, torchvision.datasets.CocoDetection):
+    if isinstance(dataset, CocoDetection):
         return dataset.coco
     return convert_to_coco_api(dataset)
 
@@ -175,13 +180,17 @@ def evaluate_detection_voc(model, test_loader, model_output_transform, send_data
     num_images = len(test_loader.dataset)
     all_boxes = [[[] for _ in range(num_images)] for _ in range(len(VOC_CLASSES)+1)]
 
-    for i in range(num_images):
+    iterator = tqdm.tqdm(range(num_images), desc="Evaluation")
+
+    for i in iterator:
 
         input, target = test_loader.dataset[i]
         input, target = send_data_to_device(input, target, device=device)
         height, width, channels = np.array(Image.open(test_loader.dataset.images[i]).convert('RGB')).shape
         output = model(input)
-        output = model_output_transform(output, target)
+
+        if model output_transform is not None:
+            output = model_output_transform(output, target, device=device, model=model)
 
         # skip j = 0, because it's the background class
         for j in range(1, output.size(1)):
@@ -201,4 +210,19 @@ def evaluate_detection_voc(model, test_loader, model_output_transform, send_data
 
         print('im_detect: {:d}/{:d}'.format(i + 1, num_images))
 
-    return get_voc_metrics(all_boxes, test_loader, VOC_CLASSES)
+        if i == 0:
+            run_hash = calculate_run_hash([], list(scores))
+            # if we are in check model we don't need to go beyond the first batch
+            if in_check_mode():
+                iterator.close()
+                break
+
+            # get the cached values from sotabench.com if available
+            client = Client.public()
+            cached_res = client.get_results_by_run_hash(run_hash)
+            if cached_res:
+                iterator.close()
+                print("No model change detected (using the first batch run_hash). Returning cached results.")
+                return cached_res, run_hash
+
+    return get_voc_metrics(all_boxes, test_loader, VOC_CLASSES), run_hash
