@@ -189,7 +189,7 @@ def evaluate_detection_voc(model, test_loader, model_output_transform, send_data
         height, width, channels = np.array(Image.open(test_loader.dataset.images[i]).convert('RGB')).shape
         output = model(input)
 
-        if model output_transform is not None:
+        if model_output_transform is not None:
             output = model_output_transform(output, target, device=device, model=model)
 
         # skip j = 0, because it's the background class
