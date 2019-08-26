@@ -117,9 +117,9 @@ class ImageNet:
     @check_inputs
     def benchmark(cls, model, input_transform=None, target_transform=None, model_output_transform=None,
                   send_data_to_device=None, device: str = 'cuda', data_root: str = './.data/vision/imagenet',
-                  num_workers: int = 4, batch_size: int = 128, num_gpu: int = 1, paper_model_name: str = None,
-                  paper_arxiv_id: str = None, paper_pwc_id: str = None, paper_results: dict = None,
-                  pytorch_hub_url: str = None) -> BenchmarkResult:
+                  num_workers: int = 4, batch_size: int = 128, pin_memory: bool = False, num_gpu: int = 1,
+                  paper_model_name: str = None, paper_arxiv_id: str = None, paper_pwc_id: str = None,
+                  paper_results: dict = None, pytorch_hub_url: str = None) -> BenchmarkResult:
 
         print("Benchmarking on ImageNet...")
 
@@ -141,7 +141,7 @@ class ImageNet:
                                        target_transform=target_transform, download=False)
 
         test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False, num_workers=num_workers,
-                                 pin_memory=True)
+                                 pin_memory=pin_memory)
         test_results, run_hash = evaluate_classification(model=model, test_loader=test_loader,
                                                model_output_transform=model_output_transform,
                                                send_data_to_device=send_data_to_device, device=device)
