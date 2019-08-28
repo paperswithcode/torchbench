@@ -33,6 +33,7 @@ class PASCALVOC:
     def benchmark(
         cls,
         model,
+        model_description=None,
         dataset_year="2007",
         input_transform=None,
         target_transform=None,
@@ -104,6 +105,7 @@ class PASCALVOC:
             results=test_results,
             pytorch_hub_id=pytorch_hub_url,
             model=paper_model_name,
+            model_description=model_description,
             arxiv_id=paper_arxiv_id,
             pwc_id=paper_pwc_id,
             paper_results=paper_results,
