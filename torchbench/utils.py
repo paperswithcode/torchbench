@@ -60,7 +60,7 @@ def default_data_to_device(
 
 
 def send_model_to_device(model, num_gpu: int = 1, device: str = "cuda"):
-    """Sends PyTorch model to a device and returns the model"""
+    """Sends PyTorch model to a device and returns the model."""
 
     device = torch.device(device)
 
@@ -121,17 +121,17 @@ def extract_archive(from_path, to_path=None, remove_finished=False):
 
 
 def calculate_run_hash(metrics: list, output: torch.Tensor):
-    """
-    Calculates the run hash for a given set of metrics and an output tensor of the model (calculate after
-    first batch)
+    """Calculate the run hash for a given set of metrics and output.
 
-    :param metrics: list of metrics for the task and dataset
-    :param output: output from the model for a given batch of data
+    It calculates the hash using the metrics and the output tensor of the model
+    (calculate after first batch).
 
-    :return:
+    Args:
+        metrics: list of metrics for the task and dataset.
+        output: output from the model for a given batch of data.
     """
 
     hash_list = metrics + np.round(output.cpu().numpy(), 3).tolist()
     m = hashlib.sha256()
-    m.update(str(hash_list).encode('utf-8'))
+    m.update(str(hash_list).encode("utf-8"))
     return m.hexdigest()

@@ -1,5 +1,7 @@
-# Source: https://github.com/pytorch/vision/blob/master/references/detection/transforms.py
-# Source: https://github.com/luuuyi/RefineDet.PyTorch/blob/master/models/refinedet.py
+# Source: https://github.com/pytorch/vision/blob/master/references/detection/
+#         transforms.py
+# Source: https://github.com/luuuyi/RefineDet.PyTorch/blob/master/models/
+#         refinedet.py
 
 import random
 from pycocotools import mask as coco_mask
@@ -99,7 +101,7 @@ class ConvertCocoPolysToMask(object):
 
         anno = target["annotations"]
 
-        anno = [obj for obj in anno if obj['iscrowd'] == 0]
+        anno = [obj for obj in anno if obj["iscrowd"] == 0]
 
         boxes = [obj["bbox"] for obj in anno]
         # guard against no boxes via resizing
@@ -147,28 +149,46 @@ class ConvertCocoPolysToMask(object):
 
 
 class VOCAnnotationTransform(object):
-    """Transforms a VOC annotation into a Tensor of bbox coords and label index
-    Initilized with a dictionary lookup of classnames to indexes
-    Arguments:
-        class_to_ind (dict, optional): dictionary lookup of classnames -> indexes
-            (default: alphabetic indexing of VOC's 20 classes)
+    """Transforms a VOC annotation into a Tensor of bbox coords.
+
+    Also label index initialized with a dictionary lookup of classnames to
+    indexes.
+
+    Args:
+        class_to_ind (dict, optional): dictionary lookup of classnames ->
+            indexes (default: alphabetic indexing of VOC's 20 classes).
         keep_difficult (bool, optional): keep difficult instances or not
-            (default: False)
-        height (int): height
-        width (int): width
+            (default: False).
     """
 
     voc_classes = (
-        'aeroplane', 'bicycle', 'bird', 'boat',
-        'bottle', 'bus', 'car', 'cat', 'chair',
-        'cow', 'diningtable', 'dog', 'horse',
-        'motorbike', 'person', 'pottedplant',
-        'sheep', 'sofa', 'train', 'tvmonitor')
+        "aeroplane",
+        "bicycle",
+        "bird",
+        "boat",
+        "bottle",
+        "bus",
+        "car",
+        "cat",
+        "chair",
+        "cow",
+        "diningtable",
+        "dog",
+        "horse",
+        "motorbike",
+        "person",
+        "pottedplant",
+        "sheep",
+        "sofa",
+        "train",
+        "tvmonitor",
+    )
 
     def __init__(self, class_to_ind=None, keep_difficult=False):
 
         self.class_to_ind = class_to_ind or dict(
-            zip(self.voc_classes, range(len(self.voc_classes))))
+            zip(self.voc_classes, range(len(self.voc_classes)))
+        )
         self.keep_difficult = keep_difficult
 
     def __call__(self, image, target):
@@ -177,19 +197,19 @@ class VOCAnnotationTransform(object):
 
         res = []
 
-        if isinstance(target['annotation']['object'], dict):
-            target_item = [target['annotation']['object']]
+        if isinstance(target["annotation"]["object"], dict):
+            target_item = [target["annotation"]["object"]]
         else:
-            target_item = target['annotation']['object']
+            target_item = target["annotation"]["object"]
 
         for obj in target_item:
-            difficult = obj['difficult'] == 1
+            difficult = obj["difficult"] == 1
             if not self.keep_difficult and difficult:
                 continue
-            name = obj['name']
-            bbox = obj['bndbox']
+            name = obj["name"]
+            bbox = obj["bndbox"]
 
-            pts = ['xmin', 'ymin', 'xmax', 'ymax']
+            pts = ["xmin", "ymin", "xmax", "ymax"]
             bndbox = []
             for i, pt in enumerate(pts):
                 cur_pt = int(bbox[pt]) - 1
@@ -200,4 +220,7 @@ class VOCAnnotationTransform(object):
             bndbox.append(label_idx)
             res += [bndbox]  # [xmin, ymin, xmax, ymax, label_ind]
 
-        return image, torch.as_tensor(np.array(res), dtype=torch.float32)  # [[xmin, ymin, xmax, ymax, label_ind], ... ]
+        return (
+            image,
+            torch.as_tensor(np.array(res), dtype=torch.float32),
+        )  # [[xmin, ymin, xmax, ymax, label_ind], ... ]

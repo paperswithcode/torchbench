@@ -1,1 +1,3 @@
-from .coco import COCO
+__all__ = ["COCO"]
+
+from torchbench.object_detection.coco import COCO

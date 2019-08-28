@@ -1,5 +1,7 @@
-from .ade20k import ADE20K
-from .camvid import CamVid
-from .cityscapes import Cityscapes
-from .pascalcontext import PASCALContext
-from .pascalvoc import PASCALVOC
+__all__ = ["ADE20K", "CamVid", "Cityscapes", "PASCALContext", "PASCALVOC"]
+
+from torchbench.semantic_segmentation.ade20k import ADE20K
+from torchbench.semantic_segmentation.camvid import CamVid
+from torchbench.semantic_segmentation.cityscapes import Cityscapes
+from torchbench.semantic_segmentation.pascalcontext import PASCALContext
+from torchbench.semantic_segmentation.pascalvoc import PASCALVOC

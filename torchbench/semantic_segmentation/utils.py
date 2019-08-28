@@ -20,8 +20,16 @@ class FlipChannels(object):
 
 
 class PadIfNeededRightBottom(DualTransform):
-    def __init__(self, min_height=769, min_width=769, border_mode=cv2.BORDER_CONSTANT,
-                 value=0, ignore_index=255, always_apply=False, p=1.0):
+    def __init__(
+        self,
+        min_height=769,
+        min_width=769,
+        border_mode=cv2.BORDER_CONSTANT,
+        value=0,
+        ignore_index=255,
+        always_apply=False,
+        p=1.0,
+    ):
         super().__init__(always_apply, p)
         self.min_height = min_height
         self.min_width = min_width
@@ -31,15 +39,25 @@ class PadIfNeededRightBottom(DualTransform):
 
     def apply(self, img, **params):
         img_height, img_width = img.shape[:2]
-        pad_height = max(0, self.min_height-img_height)
-        pad_width = max(0, self.min_width-img_width)
-        return np.pad(img, ((0, pad_height), (0, pad_width), (0, 0)), 'constant', constant_values=self.value)
+        pad_height = max(0, self.min_height - img_height)
+        pad_width = max(0, self.min_width - img_width)
+        return np.pad(
+            img,
+            ((0, pad_height), (0, pad_width), (0, 0)),
+            "constant",
+            constant_values=self.value,
+        )
 
     def apply_to_mask(self, img, **params):
         img_height, img_width = img.shape[:2]
-        pad_height = max(0, self.min_height-img_height)
-        pad_width = max(0, self.min_width-img_width)
-        return np.pad(img, ((0, pad_height), (0, pad_width)), 'constant', constant_values=self.ignore_index)
+        pad_height = max(0, self.min_height - img_height)
+        pad_width = max(0, self.min_width - img_width)
+        return np.pad(
+            img,
+            ((0, pad_height), (0, pad_width)),
+            "constant",
+            constant_values=self.ignore_index,
+        )
 
 
 class ConfusionMatrix(object):
@@ -54,7 +72,7 @@ class ConfusionMatrix(object):
         with torch.no_grad():
             k = (a >= 0) & (a < n)
             inds = n * a[k].to(torch.int64) + b[k]
-            self.mat += torch.bincount(inds, minlength=n**2).reshape(n, n)
+            self.mat += torch.bincount(inds, minlength=n ** 2).reshape(n, n)
 
     def reset(self):
         self.mat.zero_()
@@ -77,14 +95,16 @@ class ConfusionMatrix(object):
     def __str__(self):
         acc_global, acc, iu = self.compute()
         return (
-            'global correct: {:.1f}\n'
-            'average row correct: {}\n'
-            'IoU: {}\n'
-            'mean IoU: {:.1f}').format(
-                acc_global.item() * 100,
-                ['{:.1f}'.format(i) for i in (acc * 100).tolist()],
-                ['{:.1f}'.format(i) for i in (iu * 100).tolist()],
-                iu.mean().item() * 100)
+            "global correct: {:.1f}\n"
+            "average row correct: {}\n"
+            "IoU: {}\n"
+            "mean IoU: {:.1f}"
+        ).format(
+            acc_global.item() * 100,
+            ["{:.1f}".format(i) for i in (acc * 100).tolist()],
+            ["{:.1f}".format(i) for i in (iu * 100).tolist()],
+            iu.mean().item() * 100,
+        )
 
 
 def cat_list(images, fill_value=0):
@@ -92,7 +112,7 @@ def cat_list(images, fill_value=0):
     batch_shape = (len(images),) + max_size
     batched_imgs = images[0].new(*batch_shape).fill_(fill_value)
     for img, pad_img in zip(images, batched_imgs):
-        pad_img[..., :img.shape[-2], :img.shape[-1]].copy_(img)
+        pad_img[..., : img.shape[-2], : img.shape[-1]].copy_(img)
     return batched_imgs
 
 
@@ -104,10 +124,16 @@ def default_seg_collate_fn(batch):
 
 
 def default_seg_output_transform(output, target):
-    return output['out'].argmax(1).flatten(), target.flatten()
+    return output["out"].argmax(1).flatten(), target.flatten()
 
 
-def evaluate_segmentation(model, test_loader, model_output_transform, send_data_to_device, device='cuda'):
+def evaluate_segmentation(
+    model,
+    test_loader,
+    model_output_transform,
+    send_data_to_device,
+    device="cuda",
+):
     confmat = ConfusionMatrix(test_loader.no_classes)
 
     with torch.no_grad():
@@ -120,6 +146,6 @@ def evaluate_segmentation(model, test_loader, model_output_transform, send_data_
     acc_global, acc, iu = confmat.compute()
 
     return {
-        'Accuracy': acc_global.item() * 100,
-        'Mean IOU': iu.mean().item() * 100
+        "Accuracy": acc_global.item() * 100,
+        "Mean IOU": iu.mean().item() * 100,
     }

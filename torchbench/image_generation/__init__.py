@@ -1,1 +1,3 @@
-from .cifar10 import CIFAR10
+__all__ = ["CIFAR10"]
+
+from torchbench.image_generation.cifar10 import CIFAR10
