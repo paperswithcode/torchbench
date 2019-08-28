@@ -17,6 +17,7 @@ class WikiText103:
     def benchmark(
         cls,
         model,
+        model_description=None,
         encoder=None,
         context_length: int = 1024,
         model_output_transform=None,
@@ -109,6 +110,7 @@ class WikiText103:
             results=final_results,
             pytorch_hub_id=pytorch_hub_url,
             model=paper_model_name,
+            model_description=model_description,
             arxiv_id=paper_arxiv_id,
             pwc_id=paper_pwc_id,
             paper_results=paper_results,

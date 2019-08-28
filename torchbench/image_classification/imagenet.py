@@ -86,6 +86,7 @@ class ImageNet:
     def benchmark(
         cls,
         model,
+        model_description=None,
         input_transform=None,
         target_transform=None,
         model_output_transform=None,
@@ -107,6 +108,7 @@ class ImageNet:
         Args:
             model: a PyTorch module, (e.g. a ``nn.Module`` object), that takes
                 in ImageNet inputs and outputs ImageNet predictions.
+            model_description (str, optional): Optional model description.
             input_transform (transforms.Compose, optional): Composing the
                 transforms used to transform the dataset, e.g. applying
                 resizing (e.g ``transforms.Resize``), center cropping, to
@@ -220,6 +222,7 @@ class ImageNet:
             results=test_results,
             pytorch_hub_id=pytorch_hub_url,
             model=paper_model_name,
+            model_description=model_description,
             arxiv_id=paper_arxiv_id,
             pwc_id=paper_pwc_id,
             paper_results=paper_results,
