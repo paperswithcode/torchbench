@@ -1,9 +1,10 @@
-# Source: https://github.com/pytorch/vision/blob/master/references/segmentation/transforms.py
+# Source: https://github.com/pytorch/vision/blob/master/references/
+#         segmentation/transforms.py
+
+import random
 
 import numpy as np
 from PIL import Image
-import random
-
 import torch
 from torchvision import transforms as T
 from torchvision.transforms import functional as F
@@ -35,7 +36,9 @@ class Resize(object):
 
     def __call__(self, image, target):
         image = F.resize(image, self.resize_shape)
-        target = F.resize(target, self.resize_shape, interpolation=Image.NEAREST)
+        target = F.resize(
+            target, self.resize_shape, interpolation=Image.NEAREST
+        )
         return image, target
 
 
@@ -105,16 +108,48 @@ class Normalize(object):
 
 
 class ConvertCityscapesIds(object):
-    """Converts Cityscape masks - adds an ignore index"""
+    """Converts Cityscape masks - adds an ignore index."""
 
     def __init__(self, ignore_index):
         self.ignore_index = ignore_index
 
-        self.id_to_trainid = {-1: ignore_index, 0: ignore_index, 1: ignore_index, 2: ignore_index, 3: ignore_index,
-                              4: ignore_index, 5: ignore_index, 6: ignore_index, 7: 0, 8: 1, 9: ignore_index,
-                              10: ignore_index, 11: 2, 12: 3, 13: 4, 14: ignore_index, 15: ignore_index, 16: ignore_index,
-                              17: 5, 18: ignore_index, 19: 6, 20: 7, 21: 8, 22: 9, 23: 10, 24: 11, 25: 12, 26: 13, 27: 14,
-                              28: 15, 29: ignore_index, 30: ignore_index, 31: 16, 32: 17, 33: 18}
+        self.id_to_trainid = {
+            -1: ignore_index,
+            0: ignore_index,
+            1: ignore_index,
+            2: ignore_index,
+            3: ignore_index,
+            4: ignore_index,
+            5: ignore_index,
+            6: ignore_index,
+            7: 0,
+            8: 1,
+            9: ignore_index,
+            10: ignore_index,
+            11: 2,
+            12: 3,
+            13: 4,
+            14: ignore_index,
+            15: ignore_index,
+            16: ignore_index,
+            17: 5,
+            18: ignore_index,
+            19: 6,
+            20: 7,
+            21: 8,
+            22: 9,
+            23: 10,
+            24: 11,
+            25: 12,
+            26: 13,
+            27: 14,
+            28: 15,
+            29: ignore_index,
+            30: ignore_index,
+            31: 16,
+            32: 17,
+            33: 18,
+        }
 
     def __call__(self, image, target):
 

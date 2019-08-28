@@ -1,32 +1,27 @@
-import torch
-from torch import nn
-from torch.autograd import Variable
-from torch.nn import functional as F
-import torch.utils.data
-
-from torchvision.models.inception import inception_v3
 import numpy as np
 from scipy import linalg
 from scipy.stats import entropy
+import torch
+import torch.utils.data
+from torch import nn
+from torch.autograd import Variable
+from torch.nn import functional as F
+from torchvision.models.inception import inception_v3
 
 
 class FIDInceptionModel(nn.Module):
-
     def __init__(self):
         super().__init__()
         self.inception_model = inception_v3(pretrained=True)
         self.inception_model.Mixed_7c.register_forward_hook(self.output_hook)
+        self.mixed_7c_output = None
 
     def output_hook(self, module, input, output):
-        """
-        Output will be of dimensions (batch_size, 2048, 8, 8)
-        """
-
+        """Output will be of dimensions (batch_size, 2048, 8, 8)."""
         self.mixed_7c_output = output
 
     def forward(self, x):
-        """
-        x inputs should be (N, 3, 299, 299) in range -1 to 1.
+        """x inputs should be (N, 3, 299, 299) in range -1 to 1.
 
         Returns activations in form of torch.tensor of shape (N, 2048, 1, 1)
         """
@@ -34,39 +29,51 @@ class FIDInceptionModel(nn.Module):
         self.inception_model(x)
 
         activations = self.mixed_7c_output
-        activations = torch.nn.functional.adaptive_avg_pool2d(activations, (1, 1))
+        activations = F.adaptive_avg_pool2d(activations, (1, 1))
         activations = activations.view(x.shape[0], 2048)
         return activations
 
 
 class InceptionScore(nn.Module):
-
     def __init__(self, device):
         super().__init__()
         self.inception_model = inception_v3(pretrained=True).to(device=device)
-        self.up = nn.Upsample(size=(299, 299), mode='bilinear').to(device=device)
+        self.up = nn.Upsample(size=(299, 299), mode="bilinear").to(
+            device=device
+        )
 
     def forward(self, x):
-        """
-        x inputs should be (N, 3, 299, 299) in range -1 to 1.
+        """x inputs should be (N, 3, 299, 299) in range -1 to 1.
 
-        Returns class probabilities in form of torch.tensor of shape (N, 1000, 1, 1)
+        Returns class probabilities in form of torch.tensor of shape
+        (N, 1000, 1, 1).
         """
         x = self.up(x)
         x = self.inception_model(x)
         return F.softmax(x).data.cpu().numpy()
 
 
-def calculate_inception_score(sample_dataloader, test_dataloader, device='cuda', num_images=50000, splits=10):
-    """
-    Calculates the inception score for a model's samples
+def calculate_inception_score(
+    sample_dataloader,
+    test_dataloader,
+    device="cuda",
+    num_images=50000,
+    splits=10,
+):
+    """Calculate the inception score for a model's samples.
 
-    :param sample_dataloader: Dataloader for the generated image samples from the model
-    :param test_dataloader: Dataloader for the real images from the dataset to compare to
-    :param device: to perform the evaluation (e.g. 'cuda' for GPU)
-    :param num_images: number of images to evaluate
-    :param splits: nu,ber of splits to perform for the evaluation
-    :return: dict with key being the metric name, and values being the metric scores
+    Args:
+        sample_dataloader: Dataloader for the generated image samples from the
+            model.
+        test_dataloader: Dataloader for the real images from the dataset to
+            compare to.
+        device: to perform the evaluation (e.g. 'cuda' for GPU).
+        num_images: number of images to evaluate.
+        splits: nu,ber of splits to perform for the evaluation.
+
+    Returns:
+        dict: Dictionary with key being the metric name, and values being the
+            metric scores.
     """
     inception_model = InceptionScore(device=device)
     inception_model.eval()
@@ -79,13 +86,15 @@ def calculate_inception_score(sample_dataloader, test_dataloader, device='cuda',
         batch_size_i = batch.size()[0]
         predictions = inception_model(batchv)
         start = i * test_dataloader.batch_size
-        n_predictions = len(preds[start:start + batch_size_i])
-        preds[start:start + batch_size_i] = predictions[:n_predictions]
+        n_predictions = len(preds[start : start + batch_size_i])
+        preds[start : start + batch_size_i] = predictions[:n_predictions]
 
     split_scores = []
 
     for k in range(splits):
-        part = preds[k * (num_images // splits): (k + 1) * (num_images // splits), :]
+        part = preds[
+            k * (num_images // splits) : (k + 1) * (num_images // splits), :
+        ]
         py = np.mean(part, axis=0)
         scores = []
         for i in range(part.shape[0]):
@@ -93,31 +102,35 @@ def calculate_inception_score(sample_dataloader, test_dataloader, device='cuda',
             scores.append(entropy(pyx, py))
         split_scores.append(np.exp(np.mean(scores)))
 
-    return {'Inception Score': np.mean(split_scores)}
+    return {"Inception Score": np.mean(split_scores)}
 
 
 def calculate_frechet_distance(mu1, sigma1, mu2, sigma2, eps=1e-6):
     """Numpy implementation of the Frechet Distance.
 
-    This code is taken from https://github.com/mseitzer/pytorch-fid/blob/master/fid_score.py
+    This code is taken from:
+    https://github.com/mseitzer/pytorch-fid/blob/master/fid_score.py
 
     The Frechet distance between two multivariate Gaussians X_1 ~ N(mu_1, C_1)
     and X_2 ~ N(mu_2, C_2) is
             d^2 = ||mu_1 - mu_2||^2 + Tr(C_1 + C_2 - 2*sqrt(C_1*C_2)).
 
     Stable version by Dougal J. Sutherland.
-    Params:
-    -- mu1 : Numpy array containing the activations of the pool_3 layer of the
-             inception net ( like returned by the function 'get_predictions')
-             for generated samples.
-    -- mu2   : The sample mean over activations of the pool_3 layer, precalcualted
-               on an representive data set.
-    -- sigma1: The covariance matrix over activations of the pool_3 layer for
-               generated samples.
-    -- sigma2: The covariance matrix over activations of the pool_3 layer,
-               precalcualted on an representive data set.
+
+    Args:
+        mu1: Numpy array containing the activations of the pool_3 layer of the
+            inception net ( like returned by the function 'get_predictions')
+            for generated samples.
+        mu2: The sample mean over activations of the pool_3 layer,
+            precalcualted on an representive data set.
+        sigma1: The covariance matrix over activations of the pool_3 layer for
+            generated samples.
+        sigma2: The covariance matrix over activations of the pool_3 layer,
+            precalcualted on an representive data set.
+        eps: Error margin.
+
     Returns:
-    --   : The Frechet Distance.
+        The Frechet Distance.
     """
 
     mu1 = np.atleast_1d(mu1)
@@ -126,8 +139,12 @@ def calculate_frechet_distance(mu1, sigma1, mu2, sigma2, eps=1e-6):
     sigma1 = np.atleast_2d(sigma1)
     sigma2 = np.atleast_2d(sigma2)
 
-    assert mu1.shape == mu2.shape, "Training and test mean vectors have different lengths"
-    assert sigma1.shape == sigma2.shape, "Training and test covariances have different dimensions"
+    assert (
+        mu1.shape == mu2.shape
+    ), "Training and test mean vectors have different lengths"
+    assert (
+        sigma1.shape == sigma2.shape
+    ), "Training and test covariances have different dimensions"
 
     diff = mu1 - mu2
     # product might be almost singular
@@ -145,19 +162,22 @@ def calculate_frechet_distance(mu1, sigma1, mu2, sigma2, eps=1e-6):
 
     tr_covmean = np.trace(covmean)
 
-    return diff.dot(diff) + np.trace(sigma1) + np.trace(sigma2) - 2 * tr_covmean
+    return (
+        diff.dot(diff) + np.trace(sigma1) + np.trace(sigma2) - 2 * tr_covmean
+    )
 
 
-def get_activations(dataloader, device='cuda', dims=2048, num_images=500, real_dataset=False):
-    """
-    Calculates the Inception activations for a dataset
+def get_activations(
+    dataloader, device="cuda", dims=2048, num_images=500, real_dataset=False
+):
+    """Calculates the Inception activations for a dataset.
 
-    :param dataloader: Dataloader of data from which to obtain activations
-    :param device: to perform the evaluation (e.g. 'cuda' for GPU)
-    :param dims: number of activations
-    :param num_images: number of images to evaluate
-    :param real_dataset: bool (whether the dataset is real or generated)
-    :return:
+    Args:
+        dataloader: Dataloader of data from which to obtain activations.
+        device: to perform the evaluation (e.g. 'cuda' for GPU).
+        dims: number of activations.
+        num_images: number of images to evaluate.
+        real_dataset: bool (whether the dataset is real or generated).
     """
 
     n_batches = len(dataloader) // dataloader.batch_size
@@ -180,61 +200,100 @@ def get_activations(dataloader, device='cuda', dims=2048, num_images=500, real_d
         batch_size_i = batch_to_use.size()[0]
         start = i * dataloader.batch_size
         end = start + batch_size_i
-        up = nn.Upsample(size=(299, 299), mode='bilinear')
+        up = nn.Upsample(size=(299, 299), mode="bilinear")
         batch_up = up(batch_to_use)
         pred = partial_inception_model(batch_up)
         n_predictions = len(pred_arr[start:end])
-        pred_arr[start:end] = pred.cpu().data.numpy().reshape(dataloader.batch_size, -1)[:n_predictions]
+        pred_arr[start:end] = (
+            pred.cpu()
+            .data.numpy()
+            .reshape(dataloader.batch_size, -1)[:n_predictions]
+        )
         if end > n_used_imgs:
             break
 
     return pred_arr
 
 
-def calculate_activation_statistics(dataloader, device='cuda', num_images=500, real_dataset=False):
+def calculate_activation_statistics(
+    dataloader, device="cuda", num_images=500, real_dataset=False
+):
+    """Calculate the activation statistics for a dataset.
+
+    Args:
+        dataloader: Dataloader of data from which to obtain activations.
+        device: to perform the evaluation (e.g. 'cuda' for GPU).
+        num_images: number of images to evaluate.
+        real_dataset: bool (whether the dataset is real or generated).
+
+    Returns:
+        Mean activations (np.array), std of activations (np.array).
     """
-    Calculates the activation statistics for a dataset
-    :param dataloader: Dataloader of data from which to obtain activations
-    :param device: to perform the evaluation (e.g. 'cuda' for GPU)
-    :param num_images: number of images to evaluate
-    :param real_dataset: bool (whether the dataset is real or generated)
-    :return: mean activations (np.array), std of activations (np.array)
-    """
-    act = get_activations(dataloader, device, dims=2048, num_images=num_images, real_dataset=real_dataset)
+    act = get_activations(
+        dataloader,
+        device,
+        dims=2048,
+        num_images=num_images,
+        real_dataset=real_dataset,
+    )
     mu = np.mean(act, axis=0)
     sigma = np.cov(act, rowvar=False)
     return mu, sigma
 
 
-def calculate_fid(sample_dataloader, test_dataloader, device='cuda', num_images=500):
+def calculate_fid(
+    sample_dataloader, test_dataloader, device="cuda", num_images=500
+):
+    """Calculate the Frechet Inception Distance between two datasets.
+
+    Args:
+        sample_dataloader: Dataloader of generated image data.
+        test_dataloader: Dataloader of real-life image data to test against.
+        device: to perform the evaluation (e.g. 'cuda' for GPU).
+        num_images: number of images to evaluate.
+
+    Returns:
+        dict: Dictionary with key as the metric name, value as the metric
+            value.
     """
-    Calculates the Frechet Inception Distance between two datasets
-    :param sample_dataloader: Dataloader of generated image data
-    :param test_dataloader: Dataloader of real-life image data to test against
-    :param device: to perform the evaluation (e.g. 'cuda' for GPU)
-    :param num_images: number of images to evaluate
-    :return: dictionary with key as the metric name, value as the metric value
-    """
-    m1, s1 = calculate_activation_statistics(dataloader=sample_dataloader, device=device, num_images=num_images)
-    m2, s2 = calculate_activation_statistics(dataloader=test_dataloader, device=device, num_images=num_images, real_dataset=True)
-    return {'FID': calculate_frechet_distance(m1, s1, m2, s2)}
+    m1, s1 = calculate_activation_statistics(
+        dataloader=sample_dataloader, device=device, num_images=num_images
+    )
+    m2, s2 = calculate_activation_statistics(
+        dataloader=test_dataloader,
+        device=device,
+        num_images=num_images,
+        real_dataset=True,
+    )
+    return {"FID": calculate_frechet_distance(m1, s1, m2, s2)}
 
 
-def evaluate_image_generation_gan(model, model_output_transform, test_loader, device='cuda'):
-    """
-    Evaluates the image generation performance for a GAN model against a base dataset (test_loader)
-    :param model: PyTorch model instance
-    :param model_output_transform: a function that transforms the model output (e.g. torch.Tensor output)
-    This would be done, for instance, to normalize outputs to the right values (between -1 and 1 for inception)
-    :param test_loader: The Dataloader for the test dataset (e.g. CIFAR-10)
-    :param device: to perform the evaluation (e.g. 'cuda' for GPU)
-    :return: Dictionary with keys as metric keys, and values as metric values
+def evaluate_image_generation_gan(
+    model, model_output_transform, test_loader, device="cuda"
+):
+    """Evaluate the image generation performance for a GAN.
+
+    Evaluation will be against a base dataset (test_loader).
+
+    Args:
+        model: PyTorch model instance.
+        model_output_transform: a function that transforms the model output
+            (e.g. torch.Tensor output). This would be done, for instance, to
+            normalize outputs to the right values (between -1 and 1 for
+            inception).
+        test_loader: The Dataloader for the test dataset (e.g. CIFAR-10).
+        device: to perform the evaluation (e.g. 'cuda' for GPU).
+
+    Returns:
+        dict: Dictionary with keys as metric keys, and values as metric values.
     """
 
     num_images = 50000
 
     noise, _ = model.buildNoiseData(num_images)
-    noise_dataloader = torch.utils.data.DataLoader(noise, batch_size=test_loader.batch_size)
+    noise_dataloader = torch.utils.data.DataLoader(
+        noise, batch_size=test_loader.batch_size
+    )
 
     output = None
     with torch.no_grad():
@@ -246,20 +305,28 @@ def evaluate_image_generation_gan(model, model_output_transform, test_loader, de
                 output = torch.cat((output, partial_output))
 
     if model_output_transform is not None:
-        output = model_output_transform(output, target=None, device=device, model=model)
+        output = model_output_transform(
+            output, target=None, device=device, model=model
+        )
 
     # Set up dataloader
-    sample_dataloader = torch.utils.data.DataLoader(output, batch_size=test_loader.batch_size)
+    sample_dataloader = torch.utils.data.DataLoader(
+        output, batch_size=test_loader.batch_size
+    )
 
     # Calculate Metrics
-    inception_score = calculate_inception_score(test_dataloader=test_loader,
-                                                sample_dataloader=sample_dataloader,
-                                                device=device,
-                                                num_images=num_images)
+    inception_score = calculate_inception_score(
+        test_dataloader=test_loader,
+        sample_dataloader=sample_dataloader,
+        device=device,
+        num_images=num_images,
+    )
 
-    fid = calculate_fid(test_dataloader=test_loader,
-                        sample_dataloader=sample_dataloader,
-                        device=device,
-                        num_images=num_images)
+    fid = calculate_fid(
+        test_dataloader=test_loader,
+        sample_dataloader=sample_dataloader,
+        device=device,
+        num_images=num_images,
+    )
 
     return {**inception_score, **fid}
