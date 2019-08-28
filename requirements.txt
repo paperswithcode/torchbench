@@ -2,7 +2,7 @@ albumentations>=0.3.0
 numpy
 opencv-python>=4.1.0.25
 # pycocotools>=2.0.0
-sotabenchapi
+sotabenchapi>=0.0.13
 torch>=1.1.0
 torchvision>=0.3.0
 tqdm>=4.32.2
