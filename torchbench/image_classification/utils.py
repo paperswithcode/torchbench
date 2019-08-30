@@ -22,7 +22,7 @@ def evaluate_classification(
 
     end = time.time()
 
-    iterator = tqdm.tqdm(test_loader, desc="Evaluation")
+    iterator = tqdm.tqdm(test_loader, desc="Evaluation", mininterval=5)
 
     with torch.no_grad():
         for i, (input, target) in enumerate(iterator):
