@@ -48,7 +48,12 @@ ImageNet.benchmark(
 2) Run it locally on your machine to verify it works:
 
 ```bash
-python sotabench.py
+$ python sotabench.py
+```
+
+In addition, you can check your parameters (such as model names and arxiv IDs) by running:
+```bash
+$ sb check
 ```
 
 Alternatively you can run the same logic within a Notebook if that is your preferred workflow.
