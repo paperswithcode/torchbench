@@ -58,7 +58,7 @@ $ sb check
 
 Alternatively you can run the same logic within a Notebook if that is your preferred workflow.
 
-3) Login and connect your repository to [sotabench](https://sotabench.com/add-model). After you connect your repository the website will re-evaluate your model on every commit, to ensure the model is working and results are up-to-date - including if you add additional models to the benchmark file.  
+3) Login and connect your repository to [sotabench](https://sotabench.com/add-model). After you connect your repository the website will re-evaluate your model on every commit of the `master` branch, to ensure the model is working and results are up-to-date - including if you add additional models to the benchmark file.  
 
 You can also use the library without the sotabench website, by simply omitting step 3. In that case you also don't need to put in the paper details into the `benchmark()` method. 
 
