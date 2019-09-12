@@ -52,17 +52,18 @@ class COCO:
         cls,
         model,
         model_description=None,
-        dataset_year="2017",
         input_transform=None,
         target_transform=None,
         transforms=None,
         model_output_transform=None,
         collate_fn=None,
         send_data_to_device=None,
+        dataset_year="2017",
         device: str = "cuda",
         data_root: str = "./.data/vision/coco",
         num_workers: int = 4,
         batch_size: int = 1,
+        pin_memory: bool = True,
         num_gpu: int = 1,
         paper_model_name: str = None,
         paper_arxiv_id: str = None,
@@ -104,11 +105,11 @@ class COCO:
             batch_size=batch_size,
             shuffle=False,
             num_workers=num_workers,
-            pin_memory=True,
+            pin_memory=pin_memory,
             collate_fn=collate_fn,
         )
         test_loader.no_classes = 91  # Number of classes for COCO Detection
-        test_results = evaluate_detection_coco(
+        test_results, run_hash = evaluate_detection_coco(
             model=model,
             test_loader=test_loader,
             model_output_transform=model_output_transform,
@@ -129,4 +130,5 @@ class COCO:
             arxiv_id=paper_arxiv_id,
             pwc_id=paper_pwc_id,
             paper_results=paper_results,
+            run_hash=run_hash,
         )
