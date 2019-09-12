@@ -80,30 +80,35 @@ Image Classification on ImageNet benchmark is implemented in the [image_classifi
 
 - Model `output` (following `model.forward()` and optionally `model_output_transform`) should be a 2D `torch.Tensor` containing the model output; first dimension should be output for each example (length `batch_size`) and second dimension should be output for each class in ImageNet (length 1000).
 
-### Language Modelling on WikiText-103
+### Object Detection on COCO
 
-Language Modelling on WikiText-103 benchmark is implemented in the [language_modelling.WikiText103](https://github.com/paperswithcode/torchbench/blob/master/torchbench/language_modelling/wikitext103.py) class. 
+Object Detection on the COCO benchmark is implemented in the [object_detection.COCO](https://github.com/paperswithcode/torchbench/blob/master/torchbench/object_detection/coco.py) class. 
 
 #### Benchmarking Pipeline
 
 1. The model is put into evaluation mode and sent to the device
-2. The WikiText-103 text dataset is loaded and:
-- encoeded using `encoder`: this should be an object with an `encode` method that takes in raw text and produces a 
-list of tokens, i.e. `token_list = encoder.encode(rawtext)`. This is the same interface as 
-in [Hugging Face](https://github.com/huggingface/pytorch-transformers).
+2. The COCO dataset is loaded. 
 
-- takes a context length `context_length` (default 1024 - same as GPT-2).
-3. The dataset is put into a DataLoader with options `batch_size` and `num_workers`
-4. The model and dataset are passed into an evaluation function for the task, along with an optional `model_output_transform` function that can transform the outputs after inference. 
-The expected output is logits.
-5. The logits and labels are shifted to perform predictive language modelling, and the Perplexity metric is calculated.
+Without `transforms`, COCO dataset returns a tuple for an index where:
+- The first entry is a `PIL.Image`
+- The second entry is a labels dictionary, with keys `'boxes', 'labels', 'masks', 'image_id', 'area', 'iscrowd'`, containing the labels.
 
-#### Expected Inputs/Outputs
+With [default transforms](https://github.com/paperswithcode/torchbench/blob/master/torchbench/object_detection/coco.py), COCO dataset returns a tuple for an index where:
+- The first entry is a `torch.tensor` (representing the image)
+- The second entry is a labels dictionary, with keys `'boxes', 'labels', 'masks', 'image_id', 'area', 'iscrowd'`, where the data is of type `torch.tensor` rather than lists.
 
-- Model `output` (following `model.forward()` and optionally `model_output_transform`) should be a 3D `torch.Tensor` 
-containing the model output; first dimension should be output for each example (length `batch_size`), second 
-dimension should be output for each token (length=`context_length`), third dimension should be output for each vocab
-(length = vocab size). This is the same interface as in [Hugging Face](https://github.com/huggingface/pytorch-transformers).
+You can specify your own `transforms` to transform the data so your model can process it correctly.
+
+3. The dataset is put into a DataLoader with options `batch_size` and `num_workers`, and collated using [coco_collate_fn](https://github.com/paperswithcode/torchbench/blob/master/torchbench/object_detection/coco.py). Alternatively you can pass in your own collate function. 
+4. The model and dataset are passed into an evaluation function for the task, along with `model_output_transform` function that can transform the outputs and targets after inference. The default [model_output_transform](https://github.com/paperswithcode/torchbench/blob/master/torchbench/object_detection/coco.py) follows that used in the torchvision examples, but you can provide your own `model_output_transform` to get your model output in the right format.
+
+The expected output is a list of dictionaries (length = batch_size), where each dictionary contains keys for `'boxes', 'labels', 'scores', 'masks'`, and each value is of the `torch.tensor` type.
+
+5. The (transformed) model output is then converted to a dictionary with keys as the image ids, and values as a list of bounding box predictions:
+
+```result = {tar["image_id"].item(): out for tar, out in zip(target, output)}```
+            
+6. The result is passed into a COCO Evaluation pipeline and the results (Mean Average Precision) are calculated
 
 ### More benchmarks coming soon... 
 
