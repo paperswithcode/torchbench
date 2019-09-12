@@ -32,7 +32,7 @@ class CocoDetection(VisionDataset):
         self._transforms = transforms
 
     def _download(self, root, annFile):
-        if not os.path.isdir(root) or os.path.isdir(annFile):
+        if not os.path.isdir(root) or not os.path.isdir(annFile):
             if "2017" in root:
                 image_dir_zip = os.path.join(up(root), "val2017.zip")
             elif "2014" in root:

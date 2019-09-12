@@ -195,7 +195,7 @@ def evaluate_detection_coco(
 ):
 
     coco = get_coco_api_from_dataset(test_loader.dataset)
-    iou_types = _get_iou_types(model)
+    iou_types = ['bbox']
     coco_evaluator = CocoEvaluator(coco, iou_types)
 
     iterator = tqdm.tqdm(test_loader, desc="Evaluation", mininterval=5)
