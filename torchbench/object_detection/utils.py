@@ -203,8 +203,8 @@ def evaluate_detection_coco(
     with torch.no_grad():
         for i, (input, target) in enumerate(iterator):
             input, target = send_data_to_device(input, target, device=device)
-            output = model(input)
-            output, target = model_output_transform(output, target)
+            original_output = model(input)
+            output, target = model_output_transform(original_output, target)
             result = {
                 tar["image_id"].item(): out for tar, out in zip(target, output)
             }
@@ -212,7 +212,7 @@ def evaluate_detection_coco(
 
 
             if i == 0:  # for sotabench.com caching of evaluation
-                run_hash = calculate_run_hash([], result)
+                run_hash = calculate_run_hash(result, original_output)
                 # if we are in check model we don't need to go beyond the first
                 # batch
                 if in_check_mode():
