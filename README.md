@@ -104,7 +104,7 @@ You can specify your own `transforms` to transform the data so your model can pr
 
 The expected output is a list of dictionaries (length = batch_size), where each dictionary contains keys for `'boxes', 'labels', 'scores', 'masks'`, and each value is of the `torch.tensor` type.
 
-5. The (transformed) model output is then converted to a dictionary with keys as the image ids, and values as a list of bounding box predictions:
+5. The (transformed) model output is then converted to a dictionary with keys as the image ids, and values as a dictionary with the predictions (boxes, labels, scores, ...)
 
 ```result = {tar["image_id"].item(): out for tar, out in zip(target, output)}```
             
