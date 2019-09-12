@@ -212,7 +212,7 @@ def evaluate_detection_coco(
 
 
             if i == 0:  # for sotabench.com caching of evaluation
-                run_hash = calculate_run_hash(result, original_output)
+                run_hash = calculate_run_hash([], original_output)
                 # if we are in check model we don't need to go beyond the first
                 # batch
                 if in_check_mode():
