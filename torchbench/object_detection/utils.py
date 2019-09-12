@@ -1,11 +1,17 @@
 import numpy as np
 import os
 from PIL import Image
+import tqdm
 import torch
 import torchvision
+from sotabenchapi.check import in_check_mode
+from sotabenchapi.client import Client
 
 from pycocotools import mask as coco_mask
 from pycocotools.coco import COCO
+
+from torchbench.utils import calculate_run_hash
+from torchbench.datasets import CocoDetection
 
 from .coco_eval import CocoEvaluator
 from .voc_eval import (
@@ -69,11 +75,11 @@ def convert_to_coco_api(ds):
 
 def get_coco_api_from_dataset(dataset):
     for _ in range(10):
-        if isinstance(dataset, torchvision.datasets.CocoDetection):
+        if isinstance(dataset, CocoDetection):
             break
         if isinstance(dataset, torch.utils.data.Subset):
             dataset = dataset.dataset
-    if isinstance(dataset, torchvision.datasets.CocoDetection):
+    if isinstance(dataset, CocoDetection):
         return dataset.coco
     return convert_to_coco_api(dataset)
 
@@ -192,21 +198,43 @@ def evaluate_detection_coco(
     iou_types = _get_iou_types(model)
     coco_evaluator = CocoEvaluator(coco, iou_types)
 
+    iterator = tqdm.tqdm(test_loader, desc="Evaluation", mininterval=5)
+
     with torch.no_grad():
-        for i, (input, target) in enumerate(test_loader):
+        for i, (input, target) in enumerate(iterator):
             input, target = send_data_to_device(input, target, device=device)
             output = model(input)
-            output = model_output_transform(output, target)
+            output, target = model_output_transform(output, target)
             result = {
                 tar["image_id"].item(): out for tar, out in zip(target, output)
             }
             coco_evaluator.update(result)
 
+
+            if i == 0:  # for sotabench.com caching of evaluation
+                run_hash = calculate_run_hash([], result)
+                # if we are in check model we don't need to go beyond the first
+                # batch
+                if in_check_mode():
+                    iterator.close()
+                    break
+
+                # get the cached values from sotabench.com if available
+                client = Client.public()
+                cached_res = client.get_results_by_run_hash(run_hash)
+                if cached_res:
+                    iterator.close()
+                    print(
+                        "No model change detected (using the first batch run "
+                        "hash). Returning cached results."
+                    )
+                    return cached_res, run_hash
+
     coco_evaluator.synchronize_between_processes()
     coco_evaluator.accumulate()
     coco_evaluator.summarize()
 
-    return get_coco_metrics(coco_evaluator)
+    return (get_coco_metrics(coco_evaluator), run_hash)
 
 
 def evaluate_detection_voc(
