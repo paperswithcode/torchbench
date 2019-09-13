@@ -30,6 +30,8 @@ class CocoDetection(VisionDataset):
         self.coco = COCO(annFile)
         self.ids = list(sorted(self.coco.imgs.keys()))
         self._transforms = transforms
+        self.annFile = annFile
+        self.root = root
 
     def _download(self, root, annFile):
         if not os.path.isdir(root) or not os.path.isdir(annFile):

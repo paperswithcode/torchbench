@@ -41,7 +41,7 @@ def coco_output_transform(output, target):
 class COCO:
     """`COCO <https://www.sotabench.com/benchmark/coco-minival>`_ benchmark.
 
-    Note that COCO 2017 validation == 'minival
+    Note that COCO 2017 validation == 'minival' == 'val2017'
 
     Examples:
         Evaluate a Mask R-CNN model from the torchvision repository:
