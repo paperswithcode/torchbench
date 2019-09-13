@@ -80,7 +80,7 @@ class CocoDetection(VisionDataset):
 
         img = Image.open(os.path.join(self.root, path)).convert('RGB')
         image_id = self.ids[index]
-        target = dict(image_id=image_id, annotations=target)
+        target = dict(image_id=image_id, annotations=target, index=index)
         if self._transforms is not None:
             img, target = self._transforms(img, target)
         return img, target
