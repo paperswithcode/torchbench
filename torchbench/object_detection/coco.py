@@ -39,6 +39,50 @@ def coco_output_transform(output, target):
 
 
 class COCO:
+    """`COCO <https://www.sotabench.com/benchmark/coco-minival>`_ benchmark.
+
+    Note that COCO 2017 validation == 'minival' == 'val2017'
+
+    Examples:
+        Evaluate a Mask R-CNN model from the torchvision repository:
+
+        .. code-block:: python
+
+            from torchbench.object_detection import COCO
+            from torchbench.utils import send_model_to_device
+            from torchbench.object_detection.transforms import Compose, ConvertCocoPolysToMask, ToTensor
+            import torchvision
+            import PIL
+
+            def coco_data_to_device(input, target, device: str = "cuda", non_blocking: bool = True):
+                input = list(inp.to(device=device, non_blocking=non_blocking) for inp in input)
+                target = [{k: v.to(device=device, non_blocking=non_blocking) for k, v in t.items()} for t in target]
+                return input, target
+
+            def coco_collate_fn(batch):
+                return tuple(zip(*batch))
+
+            def coco_output_transform(output, target):
+                output = [{k: v.to("cpu") for k, v in t.items()} for t in output]
+                return output, target
+
+            transforms = Compose([ConvertCocoPolysToMask(), ToTensor()])
+
+            model = torchvision.models.detection.__dict__['maskrcnn_resnet50_fpn'](num_classes=91, pretrained=True)
+
+            # Run the benchmark
+            COCO.benchmark(
+                model=model,
+                paper_model_name='Mask R-CNN (ResNet-50-FPN)',
+                paper_arxiv_id='1703.06870',
+                transforms=transforms,
+                model_output_transform=coco_output_transform,
+                send_data_to_device=coco_data_to_device,
+                collate_fn=coco_collate_fn,
+                batch_size=8,
+                num_gpu=1
+            )
+    """
 
     dataset = CocoDetection
     transforms = Compose([ConvertCocoPolysToMask(), ToTensor()])
@@ -71,6 +115,71 @@ class COCO:
         paper_results: dict = None,
         pytorch_hub_url: str = None,
     ) -> BenchmarkResult:
+        """Benchmarking function.
+
+        Args:
+            model: a PyTorch module, (e.g. a ``nn.Module`` object), that takes
+                in ImageNet inputs and outputs ImageNet predictions.
+            model_description (str, optional): Optional model description.
+            input_transform (transforms.Compose, optional): Composing the
+                transforms used to transform the dataset, e.g. applying
+                resizing (e.g ``transforms.Resize``), center cropping, to
+                tensor transformations and normalization.
+            target_transform (torchvision.transforms.Compose, optional):
+                Composing any transforms used to transform the target. This is
+                usually not used for ImageNet.
+            transforms (torchbench.object_detection.transforms.Compose, optional):
+                Does a joint transform on the input and the target - please see the
+                torchbench.object_detection.transforms file for more information.
+            model_output_transform (callable, optional): An optional function
+                that takes in model output (after being passed through your
+                ``model`` forward pass) and transforms it. Afterwards, the
+                output will be passed into an evaluation function.
+            collate_fn (callable, optional): How the dataset is collated - an
+            optional callable passed into the DataLoader
+            send_data_to_device (callable, optional): An optional function
+                specifying how the model is sent to a device; see
+                ``torchbench.utils.send_model_to_device`` for the default
+                treatment.
+            dataset_year (str, optional): the dataset year for COCO to use; the
+            default (2017) creates the 'minival' validation set.
+            device (str): Default is 'cuda' - this is the device that the model
+                is sent to in the default treatment.
+            data_root (str): The location of the ImageNet dataset - change this
+                parameter when evaluating locally if your ImageNet data is
+                located in a different folder (or alternatively if you want to
+                download to an alternative location).
+            num_workers (int): The number of workers to use for the DataLoader.
+            batch_size (int) : The batch_size to use for evaluation; if you get
+                memory errors, then reduce this (half each time) until your
+                model fits onto the GPU.
+            num_gpu (int): Number of GPUs - note that sotabench.com workers
+                only support 1 GPU for now.
+            paper_model_name (str, optional): The name of the model from the
+                paper - if you want to link your build to a machine learning
+                paper. See the ImageNet benchmark page for model names,
+                https://www.sotabench.com/benchmark/imagenet, e.g. on the paper
+                leaderboard tab.
+            paper_arxiv_id (str, optional): Optional linking to ArXiv if you
+                want to link to papers on the leaderboard; put in the
+                corresponding paper's ArXiv ID, e.g. '1611.05431'.
+            paper_pwc_id (str, optional): Optional linking to Papers With Code;
+                put in the corresponding papers with code URL slug, e.g.
+                'u-gat-it-unsupervised-generative-attentional'
+            paper_results (dict, optional) : If the paper you are reproducing
+                does not have model results on sotabench.com, you can specify
+                the paper results yourself through this argument, where keys
+                are metric names, values are metric values. e.g::
+
+                    {'Top 1 Accuracy': 0.543, 'Top 5 Accuracy': 0.654}.
+
+                Ensure that the metric names match those on the sotabench
+                leaderboard - for ImageNet it should be 'Top 1 Accuracy' and
+                'Top 5 Accuracy'.
+            pytorch_hub_url (str, optional): Optional linking to PyTorch Hub
+                url if your model is linked there; e.g:
+                'nvidia_deeplearningexamples_waveglow'.
+        """
 
         config = locals()
         model, device = send_model_to_device(
@@ -122,7 +231,7 @@ class COCO:
         return BenchmarkResult(
             task=cls.task,
             config=config,
-            dataset=cls.dataset.__name__,
+            dataset='COCO minival',
             results=test_results,
             pytorch_hub_id=pytorch_hub_url,
             model=paper_model_name,

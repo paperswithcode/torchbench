@@ -101,12 +101,12 @@ def _get_iou_types(model):
 def get_coco_metrics(coco_evaluator):
 
     metrics = {
-        "AP (BB)": None,
-        "AP (BB) 50": None,
-        "AP (BB) 75": None,
-        "AP (BB) S": None,
-        "AP (BB) M": None,
-        "AP (BB) L": None,
+        "box AP": None,
+        "AP50": None,
+        "AP75": None,
+        "APS": None,
+        "APM": None,
+        "APL": None,
     }
     iouThrs = [None, 0.5, 0.75, None, None, None]
     maxDets = [100] + [coco_evaluator.coco_eval["bbox"].params.maxDets[2]] * 5
