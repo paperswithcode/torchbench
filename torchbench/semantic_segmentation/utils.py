@@ -1,8 +1,13 @@
 import cv2
 import numpy as np
+import tqdm
 import torch
 from albumentations.core.transforms_interface import DualTransform
 from PIL import Image
+from sotabenchapi.check import in_check_mode
+from sotabenchapi.client import Client
+
+from torchbench.utils import calculate_run_hash
 
 
 def minmax_normalize(img, norm_range=(0, 1), orig_range=(0, 255)):
@@ -136,16 +141,37 @@ def evaluate_segmentation(
 ):
     confmat = ConfusionMatrix(test_loader.no_classes)
 
+    iterator = tqdm.tqdm(test_loader, desc="Evaluation", mininterval=5)
+
     with torch.no_grad():
-        for i, (input, target) in enumerate(test_loader):
+        for i, (input, target) in enumerate(iterator):
             input, target = send_data_to_device(input, target, device=device)
             output = model(input)
-            output = model_output_transform(output, target)
+            output, target = model_output_transform(output, target)
             confmat.update(target, output)
+
+            if i == 0:  # for sotabench.com caching of evaluation
+                run_hash = calculate_run_hash([], output)
+                # if we are in check model we don't need to go beyond the first
+                # batch
+                if in_check_mode():
+                    iterator.close()
+                    break
+
+                # get the cached values from sotabench.com if available
+                client = Client.public()
+                cached_res = client.get_results_by_run_hash(run_hash)
+                if cached_res:
+                    iterator.close()
+                    print(
+                        "No model change detected (using the first batch run "
+                        "hash). Returning cached results."
+                    )
+                    return cached_res, run_hash
 
     acc_global, acc, iu = confmat.compute()
 
     return {
         "Accuracy": acc_global.item() * 100,
         "Mean IOU": iu.mean().item() * 100,
-    }
+    }, run_hash
