@@ -172,6 +172,6 @@ def evaluate_segmentation(
     acc_global, acc, iu = confmat.compute()
 
     return {
-        "Accuracy": acc_global.item() * 100,
-        "Mean IOU": iu.mean().item() * 100,
+        "Accuracy": acc_global.item(),
+        "Mean IOU": iu.mean().item(),
     }, run_hash
