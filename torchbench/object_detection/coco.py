@@ -119,15 +119,14 @@ class COCO:
 
         Args:
             model: a PyTorch module, (e.g. a ``nn.Module`` object), that takes
-                in ImageNet inputs and outputs ImageNet predictions.
+                in COCO inputs and outputs COCO predictions.
             model_description (str, optional): Optional model description.
             input_transform (transforms.Compose, optional): Composing the
                 transforms used to transform the dataset, e.g. applying
                 resizing (e.g ``transforms.Resize``), center cropping, to
                 tensor transformations and normalization.
             target_transform (torchvision.transforms.Compose, optional):
-                Composing any transforms used to transform the target. This is
-                usually not used for ImageNet.
+                Composing any transforms used to transform the target.
             transforms (torchbench.object_detection.transforms.Compose, optional):
                 Does a joint transform on the input and the target - please see the
                 torchbench.object_detection.transforms file for more information.
@@ -145,8 +144,8 @@ class COCO:
             default (2017) creates the 'minival' validation set.
             device (str): Default is 'cuda' - this is the device that the model
                 is sent to in the default treatment.
-            data_root (str): The location of the ImageNet dataset - change this
-                parameter when evaluating locally if your ImageNet data is
+            data_root (str): The location of the COCO dataset - change this
+                parameter when evaluating locally if your COCO data is
                 located in a different folder (or alternatively if you want to
                 download to an alternative location).
             num_workers (int): The number of workers to use for the DataLoader.
@@ -157,8 +156,8 @@ class COCO:
                 only support 1 GPU for now.
             paper_model_name (str, optional): The name of the model from the
                 paper - if you want to link your build to a machine learning
-                paper. See the ImageNet benchmark page for model names,
-                https://www.sotabench.com/benchmark/imagenet, e.g. on the paper
+                paper. See the COCO benchmark page for model names,
+                https://www.sotabench.com/benchmark/coco-minival, e.g. on the paper
                 leaderboard tab.
             paper_arxiv_id (str, optional): Optional linking to ArXiv if you
                 want to link to papers on the leaderboard; put in the
@@ -171,11 +170,11 @@ class COCO:
                 the paper results yourself through this argument, where keys
                 are metric names, values are metric values. e.g::
 
-                    {'Top 1 Accuracy': 0.543, 'Top 5 Accuracy': 0.654}.
+                    {'box AP': 0.349, 'AP50': 0.592, ...}.
 
                 Ensure that the metric names match those on the sotabench
-                leaderboard - for ImageNet it should be 'Top 1 Accuracy' and
-                'Top 5 Accuracy'.
+                leaderboard - for COCO it should be 'box AP', 'AP50',
+                'AP75', 'APS', 'APM', 'APL'
             pytorch_hub_url (str, optional): Optional linking to PyTorch Hub
                 url if your model is linked there; e.g:
                 'nvidia_deeplearningexamples_waveglow'.
