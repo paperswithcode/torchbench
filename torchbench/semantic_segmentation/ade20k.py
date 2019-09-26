@@ -85,7 +85,7 @@ class ADE20K:
             collate_fn=collate_fn,
         )
         test_loader.no_classes = 150  # Number of classes for ADE20K
-        test_results = evaluate_segmentation(
+        test_results, run_hash = evaluate_segmentation(
             model=model,
             test_loader=test_loader,
             model_output_transform=model_output_transform,
@@ -98,7 +98,7 @@ class ADE20K:
         return BenchmarkResult(
             task=cls.task,
             config=config,
-            dataset=cls.dataset.__name__,
+            dataset=cls.dataset.__name__ + " val",
             results=test_results,
             pytorch_hub_id=pytorch_hub_url,
             model=paper_model_name,

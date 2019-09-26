@@ -36,7 +36,7 @@
     
     
       
-        <title>sotabencheval Docs</title>
+        <title>torchbench Docs</title>
       
     
     
@@ -47,7 +47,7 @@
       
         
         
-        <meta name="theme-color" content="#00bcd4">
+        <meta name="theme-color" content="#ef5350">
       
     
     
@@ -71,7 +71,7 @@
   
     
     
-    <body dir="ltr" data-md-color-primary="cyan" data-md-color-accent="cyan">
+    <body dir="ltr" data-md-color-primary="red" data-md-color-accent="red">
   
     <svg class="md-svg">
       <defs>
@@ -83,7 +83,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#welcome-to-sotabencheval" tabindex="1" class="md-skip">
+      <a href="#welcome-to-torchbench" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -92,9 +92,9 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="." title="sotabencheval Docs" class="md-header-nav__button md-logo">
+        <a href="." title="torchbench Docs" class="md-header-nav__button md-logo">
           
-            <i class="md-icon"></i>
+            <i class="md-icon">explore</i>
           
         </a>
       </div>
@@ -105,11 +105,11 @@
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           
             <span class="md-header-nav__topic">
-              sotabencheval Docs
+              torchbench Docs
             </span>
             <span class="md-header-nav__topic">
               
-                Welcome to sotabencheval!
+                Welcome to torchbench!
               
             </span>
           
@@ -162,12 +162,12 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <a href="." title="sotabencheval Docs" class="md-nav__button md-logo">
+    <a href="." title="torchbench Docs" class="md-nav__button md-logo">
       
-        <i class="md-icon"></i>
+        <i class="md-icon">explore</i>
       
     </a>
-    sotabencheval Docs
+    torchbench Docs
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -187,11 +187,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        Welcome to sotabencheval!
+        Welcome to torchbench!
       </label>
     
-    <a href="." title="Welcome to sotabencheval!" class="md-nav__link md-nav__link--active">
-      Welcome to sotabencheval!
+    <a href="." title="Welcome to torchbench!" class="md-nav__link md-nav__link--active">
+      Welcome to torchbench!
     </a>
     
       
@@ -330,107 +330,45 @@
               
                 
                 
-                <h1 id="welcome-to-sotabencheval">Welcome to sotabencheval!</h1>
-<p><img alt="SotaBench" src="img/banner.png" /></p>
-<p>You have reached the docs for the <strong>sotabencheval</strong> library. This library contains a collection of deep learning benchmarks you can use to
-benchmark your models. It can be used in conjunction with the 
+                <h1 id="welcome-to-torchbench">Welcome to torchbench!</h1>
+<p><img src="img/torchbench.png" width=500></p>
+<p>You have reached the docs for the <strong>torchbench</strong> library. This library contains a collection of deep learning benchmarks you can use to
+benchmark your models, optimized for the PyTorch framework. It can be used in conjunction with the 
 <a href="http://www.sotabench.com">sotabench</a> website to record results for models, so the community
 can compare model performance on different tasks, as well as a continuous integration style
 service for your repository to benchmark your models on each commit.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><strong>sotabencheval</strong> is a general benchmarking library, meaning it is designed to support all deep learning frameworks, 
-and requires minimal code integration. There are alternative sotabench APIs you can use that are
-specialized for particular frameworks, e.g. <a href="https://github.com/paperswithcode/torchbench">torchbench</a> for PyTorch.</p>
-</div>
+<p><strong>torchbench</strong> is a framework-optimized library, meaning it is designed to take advantage of PyTorch based features
+and standardisation. If this is too constraining, you can use alternative libraries that are framework-independent,
+ e.g. <a href="https://paperswithcode.github.io/sotabench-eval/">sotabencheval</a>.</p>
 <h2 id="getting-started-benchmarking-on-imagenet">Getting Started : Benchmarking on ImageNet</h2>
 <p><strong>Step One : Create a sotabench.py file in the root of your repository</strong></p>
-<p>This can contain whatever logic you need to load and process the dataset, and to 
-produce model predictions for it. To record your results for sotabench, initialise
-an ImageNet evaluator object to name the model (and optionally) link to a paper:</p>
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">sotabencheval.image_classification</span> <span class="kn">import</span> <span class="n">ImageNetEvaluator</span>
-
-<span class="n">evaluator</span> <span class="o">=</span> <span class="n">ImageNetEvaluator</span><span class="p">(</span>
-             <span class="n">model_name</span><span class="o">=</span><span class="s1">&#39;ResNeXt-101-32x8d&#39;</span><span class="p">,</span>
-             <span class="n">paper_arxiv_id</span><span class="o">=</span><span class="s1">&#39;1611.05431&#39;</span><span class="p">)</span>
-</pre></div>
-
-
-<p>For each batch of predictions made by your model, pass a dictionary of keys as image IDs and values as 
-output predictions to the <code>evaluator.add</code> method:</p>
-<div class="codehilite"><pre><span></span><span class="n">evaluator</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">image_ids</span><span class="p">,</span> <span class="n">batch_output</span><span class="p">)))</span>
-</pre></div>
-
-
-<p>Then after you have accumulated all the predictions:</p>
-<div class="codehilite"><pre><span></span><span class="n">evaluator</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
-</pre></div>
-
-
-<p>This will ensure results are evaluated and saved when they are run on the <a href="http://www.sotabench.com">sotabench</a> server.</p>
-<p>Below you can see a working <code>sotabench.py</code> file added to the <a href="https://github.com/pytorch/vision">torchvision</a> repository 
-to test one of its models, integrating the evaluation code from above:</p>
-<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">PIL</span>
-<span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">DataLoader</span>
+<p>This contains a call to your model, metadata about your model, and options for evaluation such as dataset
+processing logic and data loader logic such as the batch size. Below is an example for the <a href="https://github.com/pytorch/vision">torchvision</a>
+repository:</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">torchbench.image_classification</span> <span class="kn">import</span> <span class="n">ImageNet</span>
 <span class="kn">from</span> <span class="nn">torchvision.models.resnet</span> <span class="kn">import</span> <span class="n">resnext101_32x8d</span>
 <span class="kn">import</span> <span class="nn">torchvision.transforms</span> <span class="kn">as</span> <span class="nn">transforms</span>
-<span class="kn">from</span> <span class="nn">torchvision.datasets</span> <span class="kn">import</span> <span class="n">ImageNet</span>
+<span class="kn">import</span> <span class="nn">PIL</span>
 
-<span class="kn">from</span> <span class="nn">sotabencheval.image_classification</span> <span class="kn">import</span> <span class="n">ImageNetEvaluator</span>
-<span class="kn">from</span> <span class="nn">sotabencheval.utils</span> <span class="kn">import</span> <span class="n">is_server</span>
-
-<span class="k">if</span> <span class="n">is_server</span><span class="p">():</span>
-    <span class="n">DATA_ROOT</span> <span class="o">=</span> <span class="s1">&#39;./.data/vision/imagenet&#39;</span>
-<span class="k">else</span><span class="p">:</span> <span class="c1"># local settings</span>
-    <span class="n">DATA_ROOT</span> <span class="o">=</span> <span class="s1">&#39;/home/ubuntu/my_data/&#39;</span>
-
-<span class="n">model</span> <span class="o">=</span> <span class="n">resnext101_32x8d</span><span class="p">(</span><span class="n">pretrained</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-
+<span class="c1"># Define the transforms need to convert ImageNet data to expected model input</span>
+<span class="n">normalize</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="p">[</span><span class="mf">0.485</span><span class="p">,</span> <span class="mf">0.456</span><span class="p">,</span> <span class="mf">0.406</span><span class="p">],</span> 
+    <span class="n">std</span><span class="o">=</span><span class="p">[</span><span class="mf">0.229</span><span class="p">,</span> <span class="mf">0.224</span><span class="p">,</span> <span class="mf">0.225</span><span class="p">])</span>
 <span class="n">input_transform</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">([</span>
     <span class="n">transforms</span><span class="o">.</span><span class="n">Resize</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="n">PIL</span><span class="o">.</span><span class="n">Image</span><span class="o">.</span><span class="n">BICUBIC</span><span class="p">),</span>
     <span class="n">transforms</span><span class="o">.</span><span class="n">CenterCrop</span><span class="p">(</span><span class="mi">224</span><span class="p">),</span>
     <span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">(),</span>
-    <span class="n">transforms</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span>
-    <span class="n">mean</span><span class="o">=</span><span class="p">[</span><span class="mf">0.485</span><span class="p">,</span> <span class="mf">0.456</span><span class="p">,</span> <span class="mf">0.406</span><span class="p">],</span> <span class="n">std</span><span class="o">=</span><span class="p">[</span><span class="mf">0.229</span><span class="p">,</span> <span class="mf">0.224</span><span class="p">,</span> <span class="mf">0.225</span><span class="p">]),</span>
+    <span class="n">normalize</span><span class="p">,</span>
 <span class="p">])</span>
 
-<span class="n">test_dataset</span> <span class="o">=</span> <span class="n">ImageNet</span><span class="p">(</span>
-    <span class="n">DATA_ROOT</span><span class="p">,</span>
-    <span class="n">split</span><span class="o">=</span><span class="s2">&quot;val&quot;</span><span class="p">,</span>
-    <span class="n">transform</span><span class="o">=</span><span class="n">input_transform</span><span class="p">,</span>
-    <span class="n">target_transform</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-    <span class="n">download</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+<span class="c1"># Run the benchmark</span>
+<span class="n">ImageNet</span><span class="o">.</span><span class="n">benchmark</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">resnext101_32x8d</span><span class="p">(</span><span class="n">pretrained</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>
+    <span class="n">paper_model_name</span><span class="o">=</span><span class="s1">&#39;ResNeXt-101-32x8d&#39;</span><span class="p">,</span>
+    <span class="n">paper_arxiv_id</span><span class="o">=</span><span class="s1">&#39;1611.05431&#39;</span><span class="p">,</span>
+    <span class="n">input_transform</span><span class="o">=</span><span class="n">input_transform</span><span class="p">,</span>
+    <span class="n">batch_size</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span>
+    <span class="n">num_gpu</span><span class="o">=</span><span class="mi">1</span>
 <span class="p">)</span>
-
-<span class="n">test_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span>
-    <span class="n">test_dataset</span><span class="p">,</span>
-    <span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span>
-    <span class="n">shuffle</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-    <span class="n">num_workers</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
-    <span class="n">pin_memory</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="n">model</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
-
-<span class="n">evaluator</span> <span class="o">=</span> <span class="n">ImageNetEvaluator</span><span class="p">(</span>
-                 <span class="n">model_name</span><span class="o">=</span><span class="s1">&#39;ResNeXt-101-32x8d&#39;</span><span class="p">,</span>
-                 <span class="n">paper_arxiv_id</span><span class="o">=</span><span class="s1">&#39;1611.05431&#39;</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">get_img_id</span><span class="p">(</span><span class="n">image_name</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">image_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.JPEG&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
-
-<span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">test_loader</span><span class="p">):</span>
-        <span class="nb">input</span> <span class="o">=</span> <span class="nb">input</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="s1">&#39;cuda&#39;</span><span class="p">,</span> <span class="n">non_blocking</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-        <span class="n">target</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="s1">&#39;cuda&#39;</span><span class="p">,</span> <span class="n">non_blocking</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-        <span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="nb">input</span>
-        <span class="n">image_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">get_img_id</span><span class="p">(</span><span class="n">img</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">test_loader</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">imgs</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="n">test_loader</span><span class="o">.</span><span class="n">batch_size</span><span class="p">:(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">test_loader</span><span class="o">.</span><span class="n">batch_size</span><span class="p">]]</span>
-        <span class="n">evaluator</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">image_ids</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">output</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()))))</span>
-
-<span class="n">evaluator</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
 </pre></div>
 
 
@@ -448,14 +386,14 @@ to test one of its models, integrating the evaluation code from above:</p>
 <p><strong>Step Three : Login and connect your repository to <a href="http://www.sotabench.com">sotabench</a></strong></p>
 <p>Create an account on <a href="http://www.sotabench.com">sotabench</a>, then head to your user page. Click the
 <strong>Connect a GitHub repository</strong> button:</p>
-<p><img alt="SotaBench" src="img/connect.png" /></p>
+<p><img width=400 src="img/connect.png"></p>
 <p>Then follow the steps to connect the repositories that you wish to benchmark:</p>
-<p><img alt="SotaBench" src="img/connect2.png" /></p>
+<p><img width=500 src="img/connect2.png"></p>
 <p>After you connect your repository, the sotabench servers will re-evaluate your model on every commit, 
 to ensure the model is working and results are up-to-date - including if you add additional models to the benchmark file.</p>
 <h2 id="installation">Installation</h2>
 <p>The library requires Python 3.6+. You can install via pip:</p>
-<div class="codehilite"><pre><span></span>pip install sotabencheval
+<div class="codehilite"><pre><span></span>pip install torchbench
 </pre></div>
 
 

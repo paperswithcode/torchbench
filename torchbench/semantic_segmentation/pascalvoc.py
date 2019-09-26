@@ -142,7 +142,7 @@ class PASCALVOC:
         return BenchmarkResult(
             task=cls.task,
             config=config,
-            dataset='PASCAL VOC %s' % dataset_year,
+            dataset='PASCAL VOC %s %s' % (dataset_year, "val"),
             results=test_results,
             pytorch_hub_id=pytorch_hub_url,
             model=paper_model_name,

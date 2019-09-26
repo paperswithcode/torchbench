@@ -36,7 +36,7 @@
     
     
       
-        <title>COCO - sotabencheval Docs</title>
+        <title>COCO - torchbench Docs</title>
       
     
     
@@ -47,7 +47,7 @@
       
         
         
-        <meta name="theme-color" content="#00bcd4">
+        <meta name="theme-color" content="#ef5350">
       
     
     
@@ -71,7 +71,7 @@
   
     
     
-    <body dir="ltr" data-md-color-primary="cyan" data-md-color-accent="cyan">
+    <body dir="ltr" data-md-color-primary="red" data-md-color-accent="red">
   
     <svg class="md-svg">
       <defs>
@@ -92,9 +92,9 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href=".." title="sotabencheval Docs" class="md-header-nav__button md-logo">
+        <a href=".." title="torchbench Docs" class="md-header-nav__button md-logo">
           
-            <i class="md-icon"></i>
+            <i class="md-icon">explore</i>
           
         </a>
       </div>
@@ -105,7 +105,7 @@
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           
             <span class="md-header-nav__topic">
-              sotabencheval Docs
+              torchbench Docs
             </span>
             <span class="md-header-nav__topic">
               
@@ -162,12 +162,12 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <a href=".." title="sotabencheval Docs" class="md-nav__button md-logo">
+    <a href=".." title="torchbench Docs" class="md-nav__button md-logo">
       
-        <i class="md-icon"></i>
+        <i class="md-icon">explore</i>
       
     </a>
-    sotabencheval Docs
+    torchbench Docs
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -178,8 +178,8 @@
 
 
   <li class="md-nav__item">
-    <a href=".." title="Welcome to sotabencheval!" class="md-nav__link">
-      Welcome to sotabencheval!
+    <a href=".." title="Welcome to torchbench!" class="md-nav__link">
+      Welcome to torchbench!
     </a>
   </li>
 
@@ -224,37 +224,141 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#server-data-location" title="Server Data Location" class="md-nav__link">
-    Server Data Location
+  <a href="#the-coco-evaluation-class" title="The COCO Evaluation Class" class="md-nav__link">
+    The COCO Evaluation Class
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-do-i-initialize-an-evaluator" title="How Do I Initialize an Evaluator?" class="md-nav__link">
-    How Do I Initialize an Evaluator?
+  <a href="#a-full-sotabenchpy-example" title="A full sotabench.py example" class="md-nav__link">
+    A full sotabench.py example
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-do-i-evaluate-predictions" title="How Do I Evaluate Predictions?" class="md-nav__link">
-    How Do I Evaluate Predictions?
+  <a href="#cocobenchmark-arguments" title="COCO.benchmark() Arguments" class="md-nav__link">
+    COCO.benchmark() Arguments
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#model" title="model" class="md-nav__link">
+    model
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#how-do-i-cache-evaluation" title="How Do I Cache Evaluation?" class="md-nav__link">
-    How Do I Cache Evaluation?
+        
+          <li class="md-nav__item">
+  <a href="#model_description" title="model_description" class="md-nav__link">
+    model_description
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#a-full-sotabenchpy-example" title="A Full sotabench.py Example" class="md-nav__link">
-    A Full sotabench.py Example
+        
+          <li class="md-nav__item">
+  <a href="#input_transform" title="input_transform" class="md-nav__link">
+    input_transform
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#target_transform" title="target_transform" class="md-nav__link">
+    target_transform
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transforms" title="transforms" class="md-nav__link">
+    transforms
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model_output_transform" title="model_output_transform" class="md-nav__link">
+    model_output_transform
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#collate_fn" title="collate_fn" class="md-nav__link">
+    collate_fn
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#send_data_to_device" title="send_data_to_device" class="md-nav__link">
+    send_data_to_device
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data_root" title="data_root" class="md-nav__link">
+    data_root
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#num_workers" title="num_workers" class="md-nav__link">
+    num_workers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch_size" title="batch_size" class="md-nav__link">
+    batch_size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paper_model_name" title="paper_model_name" class="md-nav__link">
+    paper_model_name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paper_arxiv_id" title="paper_arxiv_id" class="md-nav__link">
+    paper_arxiv_id
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paper_pwc_id" title="paper_pwc_id" class="md-nav__link">
+    paper_pwc_id
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paper_results" title="paper_results" class="md-nav__link">
+    paper_results
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pytorch_hub_url" title="pytorch_hub_url" class="md-nav__link">
+    pytorch_hub_url
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -328,37 +432,141 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#server-data-location" title="Server Data Location" class="md-nav__link">
-    Server Data Location
+  <a href="#the-coco-evaluation-class" title="The COCO Evaluation Class" class="md-nav__link">
+    The COCO Evaluation Class
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-do-i-initialize-an-evaluator" title="How Do I Initialize an Evaluator?" class="md-nav__link">
-    How Do I Initialize an Evaluator?
+  <a href="#a-full-sotabenchpy-example" title="A full sotabench.py example" class="md-nav__link">
+    A full sotabench.py example
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-do-i-evaluate-predictions" title="How Do I Evaluate Predictions?" class="md-nav__link">
-    How Do I Evaluate Predictions?
+  <a href="#cocobenchmark-arguments" title="COCO.benchmark() Arguments" class="md-nav__link">
+    COCO.benchmark() Arguments
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#model" title="model" class="md-nav__link">
+    model
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#how-do-i-cache-evaluation" title="How Do I Cache Evaluation?" class="md-nav__link">
-    How Do I Cache Evaluation?
+        
+          <li class="md-nav__item">
+  <a href="#model_description" title="model_description" class="md-nav__link">
+    model_description
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#a-full-sotabenchpy-example" title="A Full sotabench.py Example" class="md-nav__link">
-    A Full sotabench.py Example
+        
+          <li class="md-nav__item">
+  <a href="#input_transform" title="input_transform" class="md-nav__link">
+    input_transform
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#target_transform" title="target_transform" class="md-nav__link">
+    target_transform
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transforms" title="transforms" class="md-nav__link">
+    transforms
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model_output_transform" title="model_output_transform" class="md-nav__link">
+    model_output_transform
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#collate_fn" title="collate_fn" class="md-nav__link">
+    collate_fn
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#send_data_to_device" title="send_data_to_device" class="md-nav__link">
+    send_data_to_device
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data_root" title="data_root" class="md-nav__link">
+    data_root
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#num_workers" title="num_workers" class="md-nav__link">
+    num_workers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch_size" title="batch_size" class="md-nav__link">
+    batch_size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paper_model_name" title="paper_model_name" class="md-nav__link">
+    paper_model_name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paper_arxiv_id" title="paper_arxiv_id" class="md-nav__link">
+    paper_arxiv_id
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paper_pwc_id" title="paper_pwc_id" class="md-nav__link">
+    paper_pwc_id
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paper_results" title="paper_results" class="md-nav__link">
+    paper_results
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pytorch_hub_url" title="pytorch_hub_url" class="md-nav__link">
+    pytorch_hub_url
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -389,6 +597,12 @@
                 <h1 id="coco">COCO</h1>
 <p><img alt="COCO Dataset Examples" src="../img/coco.jpg" /></p>
 <p>You can view the COCO minival leaderboard <a href="https://sotabench.com/benchmarks/object-detection-on-coco-minival">here</a>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Object detection APIs in PyTorch are not very standardised across repositories, meaning that
+it may require a lot of glue to get them working with this evaluation procedure (which is based on torchvision).</p>
+<p><strong>For easier COCO integration with sotabench it is recommended to use the more general API <a href="https://paperswithcode.github.io/sotabench-eval/">sotabencheval</a>.</strong></p>
+</div>
 <h2 id="getting-started">Getting Started</h2>
 <p>You'll need the following in the root of your repository:</p>
 <ul>
@@ -396,143 +610,66 @@
 <li><code>requirements.txt</code> file - Python dependencies to be installed before running <code>sotabench.py</code></li>
 <li><code>sotabench_setup.sh</code> <em>(optional)</em> - any advanced dependencies or setup, e.g. compilation</li>
 </ul>
-<p>You can write whatever you want in your <code>sotabench.py</code> file to get model predictions on the COCO dataset. For example,
-PyTorch users might use torchvision to load the dataset.</p>
-<p>But you will need to record your results for the server, and you'll want to avoid doing things like
-downloading the dataset on the server. So you should:</p>
-<ul>
-<li><strong>Point to the server COCO data paths</strong> - popular datasets are pre-downloaded on the server.</li>
-<li><strong>Include an Evaluation object</strong> in <code>sotabench.py</code> file to record the results.</li>
-<li><strong>Use Caching</strong> <em>(optional)</em> - to speed up evaluation by hashing the first batch of predictions.</li>
-</ul>
-<p>We explain how to do these various steps below.</p>
-<h2 id="server-data-location">Server Data Location</h2>
-<p>The COCO validation data is located in the root of your repository on the server at <code>.data/vision/coco</code>. In this folder is contained:</p>
-<ul>
-<li><code>annotations_trainval2017.zip</code> - containing annotations for the validation images</li>
-<li><code>val2017.zip</code> - containing the validation images</li>
-</ul>
-<p>Your local COCO files may have a different file directory structure, so you
-can use control flow like below to change the data path if the script is being
-run on sotabench servers:</p>
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">sotabencheval.utils</span> <span class="kn">import</span> <span class="n">is_server</span>
-
-<span class="k">if</span> <span class="n">is_server</span><span class="p">():</span>
-    <span class="n">DATA_ROOT</span> <span class="o">=</span> <span class="s1">&#39;./.data/vision/coco&#39;</span>
-<span class="k">else</span><span class="p">:</span> <span class="c1"># local settings</span>
-    <span class="n">DATA_ROOT</span> <span class="o">=</span> <span class="s1">&#39;/home/ubuntu/my_data/&#39;</span>
+<p>Once you connect your repository to <a href="https://www.sotabench.com">sotabench.com</a>, the platform 
+will run your <code>sotabench.py</code> file whenever you commit to master. </p>
+<p>We now show how to write the <code>sotabench.py</code> file to evaluate a PyTorch object model with
+the torchbench library, and to allow your results to be recorded and reported for the community.</p>
+<h2 id="the-coco-evaluation-class">The COCO Evaluation Class</h2>
+<p>You can import the evaluation class from the following module:</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">torchbench.object_detection</span> <span class="kn">import</span> <span class="n">COCO</span>
 </pre></div>
 
 
-<p>This will detect if <code>sotabench.py</code> is being run on the server and change behaviour accordingly.</p>
-<h2 id="how-do-i-initialize-an-evaluator">How Do I Initialize an Evaluator?</h2>
-<p>Add this to your code - before you start batching over the dataset and making predictions:</p>
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">sotabencheval.object_detection</span> <span class="kn">import</span> <span class="n">COCOEvaluator</span>
-
-<span class="n">evaluator</span> <span class="o">=</span> <span class="n">COCOEvaluator</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="s1">&#39;My Super Model&#39;</span><span class="p">)</span>
+<p>The <code>COCO</code> class contains several components used in the evaluation, such as the <code>dataset</code>:</p>
+<div class="codehilite"><pre><span></span><span class="n">COCO</span><span class="o">.</span><span class="n">dataset</span>
+<span class="c1"># torchbench.datasets.coco.CocoDetection</span>
 </pre></div>
 
 
-<p>If you are reproducing a model from a paper, then you can enter the arXiv ID. If you
-put in the same model name string as on the <a href="https://sotabench.com/benchmarks/object-detection-on-coco-minival">leaderboard</a>
-then you will enable direct comparison with the paper's model. For example:</p>
-<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">sotabencheval.object_detection</span> <span class="kn">import</span> <span class="n">COCOEvaluator</span>
+<p>And some default arguments used for evaluation (which can be overridden):</p>
+<div class="codehilite"><pre><span></span><span class="n">COCO</span><span class="o">.</span><span class="n">transforms</span>
+<span class="c1"># &lt;torchbench.object_detection.transforms.Compose at 0x7f60e9ffd0b8&gt;</span>
 
-<span class="n">evaluator</span> <span class="o">=</span> <span class="n">COCOEvaluator</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="s1">&#39;Mask R-CNN&#39;</span><span class="p">,</span> <span class="n">paper_arxiv_id</span><span class="o">=</span><span class="s1">&#39;1703.06870&#39;</span><span class="p">)</span>
+<span class="n">COCO</span><span class="o">.</span><span class="n">send_data_to_device</span>
+<span class="c1"># &lt;function torchbench.object_detection.coco.coco_data_to_device&gt;</span>
+
+<span class="n">COCO</span><span class="o">.</span><span class="n">collate_fn</span>
+<span class="c1"># &lt;function torchbench.object_detection.coco.coco_collate_fn&gt;</span>
+
+<span class="n">COCO</span><span class="o">.</span><span class="n">model_output_transform</span>
+<span class="c1"># &lt;function torchbench.object_detection.coco.coco_output_transform&gt;</span>
 </pre></div>
 
 
-<p>The above will directly compare with the result of the paper when run on the server.</p>
-<h2 id="how-do-i-evaluate-predictions">How Do I Evaluate Predictions?</h2>
-<p>The evaluator object has an <a href="https://github.com/paperswithcode/sotabench-eval/blob/a788d17252913e5f2d24733845de80aec23101fb/sotabencheval/object_detection/coco.py#L187">.add()</a> method to submit predictions by batch or in full.</p>
-<p>For COCO the expected input is a list of dictionaries, where each dictionary contains detection information
-that will be used by the <a href="https://github.com/paperswithcode/sotabench-eval/blob/a788d17252913e5f2d24733845de80aec23101fb/sotabencheval/object_detection/coco_eval.py#L236">loadRes</a> method based on the <a href="https://github.com/cocodataset/cocoapi/tree/master/PythonAPI/pycocotools">pycocotools</a> API. </p>
-<p>Each detection can take a dictionary
-like the following:</p>
-<div class="codehilite"><pre><span></span><span class="p">{</span><span class="s1">&#39;image_id&#39;</span><span class="p">:</span> <span class="mi">397133</span><span class="p">,</span> <span class="s1">&#39;bbox&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">386.1628112792969</span><span class="p">,</span> <span class="mf">69.48855590820312</span><span class="p">,</span> <span class="mf">110.14895629882812</span><span class="p">,</span> <span class="mf">278.2847595214844</span><span class="p">],</span>
-<span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="mf">0.999152421951294</span><span class="p">,</span> <span class="s1">&#39;category_id&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+<p>We will explain these different options shortly and how you can manipulate them to get the
+evaluation logic to play nicely with your model.</p>
+<p>An evaluation call - which performs evaluation, and if on the sotabench.com server, saves the results - 
+looks like the following through the <code>benchmark()</code> method:</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">torchvision</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">detection</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">&#39;maskrcnn_resnet50_fpn&#39;</span><span class="p">](</span><span class="n">num_classes</span><span class="o">=</span><span class="mi">91</span><span class="p">,</span> <span class="n">pretrained</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="n">COCO</span><span class="o">.</span><span class="n">benchmark</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+    <span class="n">paper_model_name</span><span class="o">=</span><span class="s1">&#39;Mask R-CNN (ResNet-50-FPN)&#39;</span><span class="p">,</span>
+    <span class="n">paper_arxiv_id</span><span class="o">=</span><span class="s1">&#39;1703.06870&#39;</span>
+<span class="p">)</span>
 </pre></div>
 
 
-<p>For this benchmark, only bounding box detection ('bbox') is performed at present.</p>
-<p>You can do this all at once in a single call to <code>add()</code>, but more naturally, you will 
-probably loop over the dataset and call the method for the outputs of each batch.
-That would look something like this (for a PyTorch example):</p>
-<div class="codehilite"><pre><span></span><span class="o">...</span>
-
-<span class="n">evaluator</span> <span class="o">=</span> <span class="n">COCOEvaluator</span><span class="p">(</span>
-                 <span class="n">model_name</span><span class="o">=</span><span class="s1">&#39;Mask R-CNN&#39;</span><span class="p">,</span>
-                 <span class="n">paper_arxiv_id</span><span class="o">=</span><span class="s1">&#39;1703.06870&#39;</span><span class="p">)</span>
-
-<span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data_loader</span><span class="p">):</span>
-        <span class="o">...</span>
-        <span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
-        <span class="c1"># potentially formatting of the output here to be a list of dicts</span>
-        <span class="n">evaluator</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
-</pre></div>
-
-
-<p>When you are done, you can get the results locally by running:</p>
-<div class="codehilite"><pre><span></span><span class="n">evaluator</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
-</pre></div>
-
-
-<p>But for the server you want to save the results by running:</p>
-<div class="codehilite"><pre><span></span><span class="n">evaluator</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
-</pre></div>
-
-
-<p>This method serialises the results and model metadata and stores to the server database.</p>
-<h2 id="how-do-i-cache-evaluation">How Do I Cache Evaluation?</h2>
-<p>Sotabench reruns your script on every commit. This is good because it acts like 
-continuous integration in checking for bugs and changes, but can be annoying
-if the model hasn't changed and evaluation is lengthy. </p>
-<p>Fortunately sotabencheval has caching logic that you can use.</p>
-<p>The idea is that after the first batch, we hash the model outputs and the
-current metrics and this tells us if the model is the same given the dataset.
-You can include hashing within an evaluation loop like follows (in the following
-example for a PyTorch repository):</p>
-<div class="codehilite"><pre><span></span><span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data_loader</span><span class="p">):</span>
-        <span class="o">...</span>
-        <span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
-        <span class="c1"># potentially formatting of the output here to be a list of dicts</span>
-        <span class="n">evaluator</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">evaluator</span><span class="o">.</span><span class="n">cache_exists</span><span class="p">:</span>
-            <span class="k">break</span>
-
-<span class="n">evaluator</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
-</pre></div>
-
-
-<p>If the hash is the same as in the server, we infer that the model hasn't changed, so
-we simply return hashed results rather than running the whole evaluation again.</p>
-<p>Caching is very useful if you have large models, or a repository that is evaluating
-multiple models, as it speeds up evaluation significantly.</p>
-<h2 id="a-full-sotabenchpy-example">A Full sotabench.py Example</h2>
-<p>Below we show an implementation for a model from the torchvision repository. This
-incorporates all the features explained above: (a) using the server data root, 
-(b) using the COCO Evaluator, and (c) caching the evaluation logic. Note that the
-torchbench dependency is just to get some processing logic and transforms; the evaluation
-is done with sotabencheval.</p>
-<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">tqdm</span> 
-<span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">DataLoader</span>
+<p>These are the key arguments: the <code>model</code> which is a usually a <code>nn.Module</code> type object, but more generally,
+is any method with a <code>forward</code> method that takes in input data and outputs predictions.
+<code>paper_model_name</code> refers to the name of the model and <code>paper_arxiv_id</code> (optionally) refers to 
+the paper from which the model originated. If these two arguments match a record paper result,
+then sotabench.com will match your model with the paper and compare your code's results with the
+reported results in the paper.</p>
+<h2 id="a-full-sotabenchpy-example">A full <code>sotabench.py</code> example</h2>
+<p>Below shows an example for the <a href="https://github.com/pytorch/vision/tree/master/torchvision">torchvision</a> 
+repository benchmarking a Mask R-CNN model:</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">torchbench.object_detection</span> <span class="kn">import</span> <span class="n">COCO</span>
 <span class="kn">from</span> <span class="nn">torchbench.utils</span> <span class="kn">import</span> <span class="n">send_model_to_device</span>
 <span class="kn">from</span> <span class="nn">torchbench.object_detection.transforms</span> <span class="kn">import</span> <span class="n">Compose</span><span class="p">,</span> <span class="n">ConvertCocoPolysToMask</span><span class="p">,</span> <span class="n">ToTensor</span>
 <span class="kn">import</span> <span class="nn">torchvision</span>
 <span class="kn">import</span> <span class="nn">PIL</span>
-
-<span class="kn">from</span> <span class="nn">sotabencheval.object_detection</span> <span class="kn">import</span> <span class="n">COCOEvaluator</span>
-<span class="kn">from</span> <span class="nn">sotabencheval.utils</span> <span class="kn">import</span> <span class="n">is_server</span>
-
-<span class="k">if</span> <span class="n">is_server</span><span class="p">():</span>
-    <span class="n">DATA_ROOT</span> <span class="o">=</span> <span class="s1">&#39;./.data/vision/coco&#39;</span>
-<span class="k">else</span><span class="p">:</span> <span class="c1"># local settings</span>
-    <span class="n">DATA_ROOT</span> <span class="o">=</span> <span class="s1">&#39;/home/ubuntu/my_data/&#39;</span>
 
 <span class="k">def</span> <span class="nf">coco_data_to_device</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">device</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;cuda&quot;</span><span class="p">,</span> <span class="n">non_blocking</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="bp">True</span><span class="p">):</span>
     <span class="nb">input</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">inp</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">non_blocking</span><span class="o">=</span><span class="n">non_blocking</span><span class="p">)</span> <span class="k">for</span> <span class="n">inp</span> <span class="ow">in</span> <span class="nb">input</span><span class="p">)</span>
@@ -550,71 +687,107 @@ is done with sotabencheval.</p>
 
 <span class="n">model</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">detection</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">&#39;maskrcnn_resnet50_fpn&#39;</span><span class="p">](</span><span class="n">num_classes</span><span class="o">=</span><span class="mi">91</span><span class="p">,</span> <span class="n">pretrained</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
-<span class="n">model</span><span class="p">,</span> <span class="n">device</span> <span class="o">=</span> <span class="n">send_model_to_device</span><span class="p">(</span>
-    <span class="n">model</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s1">&#39;cuda&#39;</span><span class="p">,</span> <span class="n">num_gpu</span><span class="o">=</span><span class="mi">1</span>
-<span class="p">)</span>
-<span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
-
-<span class="n">model_output_transform</span> <span class="o">=</span> <span class="n">coco_output_transform</span>
-<span class="n">send_data_to_device</span> <span class="o">=</span> <span class="n">coco_data_to_device</span>
-<span class="n">collate_fn</span> <span class="o">=</span> <span class="n">coco_collate_fn</span>
-
-<span class="n">test_dataset</span> <span class="o">=</span> <span class="n">torchbench</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">CocoDetection</span><span class="p">(</span>
-    <span class="n">root</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DATA_ROOT</span><span class="p">,</span> <span class="s2">&quot;val</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="s1">&#39;2017&#39;</span><span class="p">),</span>
-    <span class="n">annFile</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-        <span class="n">DATA_ROOT</span><span class="p">,</span> <span class="s2">&quot;annotations/instances_val</span><span class="si">%s</span><span class="s2">.json&quot;</span> <span class="o">%</span> <span class="s1">&#39;2017&#39;</span>
-    <span class="p">),</span>
-    <span class="n">transform</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-    <span class="n">target_transform</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+<span class="c1"># Run the benchmark</span>
+<span class="n">COCO</span><span class="o">.</span><span class="n">benchmark</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+    <span class="n">paper_model_name</span><span class="o">=</span><span class="s1">&#39;Mask R-CNN (ResNet-50-FPN)&#39;</span><span class="p">,</span>
+    <span class="n">paper_arxiv_id</span><span class="o">=</span><span class="s1">&#39;1703.06870&#39;</span><span class="p">,</span>
     <span class="n">transforms</span><span class="o">=</span><span class="n">transforms</span><span class="p">,</span>
-    <span class="n">download</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="n">test_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span>
-    <span class="n">test_dataset</span><span class="p">,</span>
+    <span class="n">model_output_transform</span><span class="o">=</span><span class="n">coco_output_transform</span><span class="p">,</span>
+    <span class="n">send_data_to_device</span><span class="o">=</span><span class="n">coco_data_to_device</span><span class="p">,</span>
+    <span class="n">collate_fn</span><span class="o">=</span><span class="n">coco_collate_fn</span><span class="p">,</span>
     <span class="n">batch_size</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
-    <span class="n">shuffle</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-    <span class="n">num_workers</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
-    <span class="n">pin_memory</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-    <span class="n">collate_fn</span><span class="o">=</span><span class="n">collate_fn</span><span class="p">,</span>
+    <span class="n">num_gpu</span><span class="o">=</span><span class="mi">1</span>
 <span class="p">)</span>
-<span class="n">test_loader</span><span class="o">.</span><span class="n">no_classes</span> <span class="o">=</span> <span class="mi">91</span>  <span class="c1"># Number of classes for COCO Detection</span>
+</pre></div>
 
-<span class="n">iterator</span> <span class="o">=</span> <span class="n">tqdm</span><span class="o">.</span><span class="n">tqdm</span><span class="p">(</span><span class="n">test_loader</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Evaluation&quot;</span><span class="p">,</span> <span class="n">mininterval</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 
-<span class="n">evaluator</span> <span class="o">=</span> <span class="n">COCOEvaluator</span><span class="p">(</span>
-    <span class="n">root</span><span class="o">=</span><span class="n">DATA_ROOT</span><span class="p">,</span>
-    <span class="n">model_name</span><span class="o">=</span><span class="s1">&#39;Mask R-CNN (ResNet-50-FPN)&#39;</span><span class="p">,</span>
-    <span class="n">paper_arxiv_id</span><span class="o">=</span><span class="s1">&#39;1703.06870&#39;</span>
+<h2 id="cocobenchmark-arguments"><code>COCO.benchmark()</code> Arguments</h2>
+<p>The source code for the COCO evaluation method can be found <a href="https://github.com/paperswithcode/torchbench/blob/develop/torchbench/object_detection/coco.py">here</a>.
+We now explain each argument.</p>
+<h3 id="model">model</h3>
+<p><strong>a PyTorch module, (e.g. a <code>nn.Module</code> object), that takes in COCO data and outputs detections.</strong></p>
+<p>For example, from the torchvision repository:</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">torchvision</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">detection</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">&#39;maskrcnn_resnet50_fpn&#39;</span><span class="p">](</span><span class="n">num_classes</span><span class="o">=</span><span class="mi">91</span><span class="p">,</span> <span class="n">pretrained</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
 
-<span class="k">def</span> <span class="nf">prepare_for_coco_detection</span><span class="p">(</span><span class="n">predictions</span><span class="p">):</span>
-    <span class="n">coco_results</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">original_id</span><span class="p">,</span> <span class="n">prediction</span> <span class="ow">in</span> <span class="n">predictions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">prediction</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">continue</span>
 
-        <span class="n">boxes</span> <span class="o">=</span> <span class="n">prediction</span><span class="p">[</span><span class="s2">&quot;boxes&quot;</span><span class="p">]</span>
-        <span class="n">boxes</span> <span class="o">=</span> <span class="n">convert_to_xywh</span><span class="p">(</span><span class="n">boxes</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-        <span class="n">scores</span> <span class="o">=</span> <span class="n">prediction</span><span class="p">[</span><span class="s2">&quot;scores&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-        <span class="n">labels</span> <span class="o">=</span> <span class="n">prediction</span><span class="p">[</span><span class="s2">&quot;labels&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<h3 id="model_description">model_description</h3>
+<p><strong>(str, optional): Optional model description.</strong></p>
+<p>For example:</p>
+<div class="codehilite"><pre><span></span><span class="n">model_description</span> <span class="o">=</span> <span class="s1">&#39;Using ported TensorFlow weights&#39;</span>
+</pre></div>
 
-        <span class="n">coco_results</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
-            <span class="p">[</span>
-                <span class="p">{</span>
-                    <span class="s2">&quot;image_id&quot;</span><span class="p">:</span> <span class="n">original_id</span><span class="p">,</span>
-                    <span class="s2">&quot;category_id&quot;</span><span class="p">:</span> <span class="n">labels</span><span class="p">[</span><span class="n">k</span><span class="p">],</span>
-                    <span class="s2">&quot;bbox&quot;</span><span class="p">:</span> <span class="n">box</span><span class="p">,</span>
-                    <span class="s2">&quot;score&quot;</span><span class="p">:</span> <span class="n">scores</span><span class="p">[</span><span class="n">k</span><span class="p">],</span>
-                <span class="p">}</span>
-                <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">box</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">boxes</span><span class="p">)</span>
-            <span class="p">]</span>
-        <span class="p">)</span>
-    <span class="k">return</span> <span class="n">coco_results</span>
 
-<span class="k">def</span> <span class="nf">convert_to_xywh</span><span class="p">(</span><span class="n">boxes</span><span class="p">):</span>
-    <span class="n">xmin</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">boxes</span><span class="o">.</span><span class="n">unbind</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">((</span><span class="n">xmin</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">-</span> <span class="n">xmin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">-</span> <span class="n">ymin</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<h3 id="input_transform">input_transform</h3>
+<p><strong>Composing the transforms used to transform the input data (the images), e.g. 
+resizing (e.g <code>transforms.Resize</code>), center cropping, to tensor transformations and normalization.</strong></p>
+<p>For example:</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">torchvision.transforms</span> <span class="kn">as</span> <span class="nn">transforms</span>
+<span class="n">input_transform</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">([</span>
+    <span class="n">transforms</span><span class="o">.</span><span class="n">Resize</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="n">PIL</span><span class="o">.</span><span class="n">Image</span><span class="o">.</span><span class="n">BICUBIC</span><span class="p">),</span>
+    <span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">(),</span>
+<span class="p">])</span>
+</pre></div>
 
-<span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+
+<h3 id="target_transform">target_transform</h3>
+<p><strong>Composing the transforms used to transform the target data</strong></p>
+<h3 id="transforms">transforms</h3>
+<p><strong>Composing the transforms used to transform the input data (the images) and the target data (the labels) 
+in a dual fashion - for example resizing the pair of data jointly.</strong> </p>
+<p>Below shows an example; note the
+fact that the <code>__call__</code> takes in two arguments and returns two arguments (ordinary <code>torchvision</code> transforms
+return one result).</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">torchvision.transforms</span> <span class="kn">import</span> <span class="n">functional</span> <span class="k">as</span> <span class="n">F</span>
+
+<span class="k">class</span> <span class="nc">Compose</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transforms</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transforms</span> <span class="o">=</span> <span class="n">transforms</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">transforms</span><span class="p">:</span>
+            <span class="n">image</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">t</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">image</span><span class="p">,</span> <span class="n">target</span>
+
+<span class="k">class</span> <span class="nc">ToTensor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">to_tensor</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">image</span><span class="p">,</span> <span class="n">target</span>
+
+<span class="k">class</span> <span class="nc">ImageResize</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resize_shape</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resize_shape</span> <span class="o">=</span> <span class="n">resize_shape</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">resize_shape</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">image</span><span class="p">,</span> <span class="n">target</span>
+
+<span class="n">transforms</span> <span class="o">=</span> <span class="n">Compose</span><span class="p">([</span><span class="n">ImageResize</span><span class="p">((</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">)),</span> <span class="n">ToTensor</span><span class="p">()])</span>
+</pre></div>
+
+
+<p>Note that the default transforms are:</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">torchbench.object_detection.utils</span> <span class="kn">import</span> <span class="n">Compose</span><span class="p">,</span> <span class="n">ConvertCocoPolysToMask</span><span class="p">,</span> <span class="n">ToTensor</span>
+<span class="n">transforms</span> <span class="o">=</span> <span class="n">Compose</span><span class="p">([</span><span class="n">ConvertCocoPolysToMask</span><span class="p">(),</span> <span class="n">ToTensor</span><span class="p">()])</span>
+</pre></div>
+
+
+<p>Where <code>ConvertCocoPolysToMask</code> is from the torchvision reference implementation to transform
+the inputs to the right format to be entered into the model. You can pass whatever transforms
+you need to make the dataset work with your model.</p>
+<h3 id="model_output_transform">model_output_transform</h3>
+<p><strong>(callable, optional): An optional function
+                that takes in model output (after being passed through your
+                <code>model</code> forward pass) and transforms it. Afterwards, the
+                output will be passed into an evaluation function.</strong></p>
+<p>The model output transform is a function that you can pass in to transform the model output
+after the data has been passed into the model. This is useful if you have to do further 
+processing steps after inference to get the predictions in the right format for evaluation.</p>
+<p>The model evaluation for each batch is as follows from <a href="https://github.com/paperswithcode/torchbench/blob/db9fbdf5567350b8316336ca4f3fd27a04999347/torchbench/object_detection/utils.py#L189">utils.py</a> 
+are:</p>
+<div class="codehilite"><pre><span></span><span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">iterator</span><span class="p">):</span>
         <span class="nb">input</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">send_data_to_device</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
         <span class="n">original_output</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
@@ -622,17 +795,78 @@ is done with sotabencheval.</p>
         <span class="n">result</span> <span class="o">=</span> <span class="p">{</span>
             <span class="n">tar</span><span class="p">[</span><span class="s2">&quot;image_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">():</span> <span class="n">out</span> <span class="k">for</span> <span class="n">tar</span><span class="p">,</span> <span class="n">out</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
         <span class="p">}</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">prepare_for_coco_detection</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-
-        <span class="n">evaluator</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">evaluator</span><span class="o">.</span><span class="n">cache_exists</span><span class="p">:</span>
-            <span class="k">break</span>
-
-<span class="n">evaluator</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="n">coco_evaluator</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 </pre></div>
 
 
+<p>We can see the <code>model_output_transform</code> in use, and the fact that the <code>output</code> is then 
+transformed to be a dictionary with image_ids as keys and output as values. </p>
+<p>The expected output of <code>model_output_transform</code> is a list of dictionaries (length = batch_size),
+where each dictionary contains keys for 'boxes', 'labels', 'scores', 'masks', and each value is 
+of the <code>torch.tensor</code> type.</p>
+<p>The expected output of <code>result</code> is  converted to a dictionary with keys as the image ids, and 
+values as a dictionary with the predictions (boxes, labels, scores, ... as keys).</p>
+<h3 id="collate_fn">collate_fn</h3>
+<p><strong>How the dataset is collated - an optional callable passed into the DataLoader</strong></p>
+<p>As an example the default collate function is:</p>
+<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">coco_collate_fn</span><span class="p">(</span><span class="n">batch</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">batch</span><span class="p">))</span>
+</pre></div>
+
+
+<h3 id="send_data_to_device">send_data_to_device</h3>
+<p><strong>An optional function specifying how the model is sent to a device</strong></p>
+<p>As an example the COCO default is:</p>
+<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">coco_data_to_device</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">device</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;cuda&quot;</span><span class="p">,</span> <span class="n">non_blocking</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="bp">True</span><span class="p">):</span>
+    <span class="nb">input</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">inp</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">non_blocking</span><span class="o">=</span><span class="n">non_blocking</span><span class="p">)</span> <span class="k">for</span> <span class="n">inp</span> <span class="ow">in</span> <span class="nb">input</span><span class="p">)</span>
+    <span class="n">target</span> <span class="o">=</span> <span class="p">[{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">non_blocking</span><span class="o">=</span><span class="n">non_blocking</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">t</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">target</span><span class="p">]</span>
+    <span class="k">return</span> <span class="nb">input</span><span class="p">,</span> <span class="n">target</span>
+</pre></div>
+
+
+<h3 id="data_root">data_root</h3>
+<p><strong>data_root (str): The location of the COCO dataset - change this
+                parameter when evaluating locally if your COCO data is
+                located in a different folder (or alternatively if you want to
+                download to an alternative location).</strong></p>
+<p>Note that this parameter will be overriden when the evaluation is performed on the server,
+so it is solely for your local use.</p>
+<h3 id="num_workers">num_workers</h3>
+<p><strong>num_workers (int): The number of workers to use for the DataLoader.</strong></p>
+<h3 id="batch_size">batch_size</h3>
+<p><strong>batch_size (int) : The batch_size to use for evaluation; if you get
+                memory errors, then reduce this (half each time) until your
+                model fits onto the GPU.</strong></p>
+<h3 id="paper_model_name">paper_model_name</h3>
+<p><strong>paper_model_name (str, optional): The name of the model from the
+    paper - if you want to link your build to a machine learning
+    paper. See the COCO benchmark page for model names,
+    https://www.sotabench.com/benchmark/coco-minival, e.g. on the paper
+    leaderboard tab.</strong></p>
+<h3 id="paper_arxiv_id">paper_arxiv_id</h3>
+<p><strong>paper_arxiv_id (str, optional): Optional linking to ArXiv if you
+    want to link to papers on the leaderboard; put in the
+    corresponding paper's ArXiv ID, e.g. '1611.05431'.</strong></p>
+<h3 id="paper_pwc_id">paper_pwc_id</h3>
+<p><strong>paper_pwc_id (str, optional): Optional linking to Papers With Code;
+    put in the corresponding papers with code URL slug, e.g.
+    'u-gat-it-unsupervised-generative-attentional'</strong></p>
+<h3 id="paper_results">paper_results</h3>
+<p><strong>paper_results (dict, optional) : If the paper you are reproducing
+    does not have model results on sotabench.com, you can specify
+    the paper results yourself through this argument, where keys
+    are metric names, values are metric values. e.g::</strong></p>
+<div class="codehilite"><pre><span></span><span class="p">{</span><span class="s1">&#39;box AP&#39;</span><span class="p">:</span> <span class="mf">0.349</span><span class="p">,</span> <span class="s1">&#39;AP50&#39;</span><span class="p">:</span> <span class="mf">0.592</span><span class="p">,</span> <span class="o">...</span><span class="p">}</span><span class="o">.</span>
+</pre></div>
+
+
+<p>Ensure that the metric names match those on the sotabench
+leaderboard - for COCO it should be 'box AP', 'AP50',
+'AP75', 'APS', 'APM', 'APL'</p>
+<h3 id="pytorch_hub_url">pytorch_hub_url</h3>
+<p><strong>pytorch_hub_url (str, optional): Optional linking to PyTorch Hub
+    url if your model is linked there; e.g:
+    'nvidia_deeplearningexamples_waveglow'.</strong></p>
 <h2 id="need-more-help">Need More Help?</h2>
 <p>Head on over to the <a href="https://forum.sotabench.com/c/cv">Computer Vision</a> section of the sotabench
 forums if you have any questions or difficulties.</p>
@@ -656,7 +890,7 @@ forums if you have any questions or difficulties.</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href=".." title="Welcome to sotabencheval!" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href=".." title="Welcome to torchbench!" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -665,7 +899,7 @@ forums if you have any questions or difficulties.</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Welcome to sotabencheval!
+                Welcome to torchbench!
               </span>
             </div>
           </a>
