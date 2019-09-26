@@ -1,0 +1,865 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.0">
+    
+    
+      
+        <title>ImageNet - torchbench Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.0284f74d.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.01803549.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#ef5350">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="red" data-md-color-accent="red">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#imagenet" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href=".." title="torchbench Docs" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon">explore</i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              torchbench Docs
+            </span>
+            <span class="md-header-nav__topic">
+              
+                ImageNet
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href=".." title="torchbench Docs" class="md-nav__button md-logo">
+      
+        <i class="md-icon">explore</i>
+      
+    </a>
+    torchbench Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Welcome to torchbench!" class="md-nav__link">
+      Welcome to torchbench!
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../coco/" title="COCO" class="md-nav__link">
+      COCO
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        ImageNet
+      </label>
+    
+    <a href="./" title="ImageNet" class="md-nav__link md-nav__link--active">
+      ImageNet
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" title="Getting Started" class="md-nav__link">
+    Getting Started
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-imagenet-evaluation-class" title="The ImageNet Evaluation Class" class="md-nav__link">
+    The ImageNet Evaluation Class
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-full-sotabenchpy-example" title="A full sotabench.py example" class="md-nav__link">
+    A full sotabench.py example
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#imagenetbenchmark-arguments" title="ImageNet.benchmark() Arguments" class="md-nav__link">
+    ImageNet.benchmark() Arguments
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#model" title="model" class="md-nav__link">
+    model
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model_description" title="model_description" class="md-nav__link">
+    model_description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#input_transform" title="input_transform" class="md-nav__link">
+    input_transform
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#target_transform" title="target_transform" class="md-nav__link">
+    target_transform
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model_output_transform" title="model_output_transform" class="md-nav__link">
+    model_output_transform
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#send_data_to_device" title="send_data_to_device" class="md-nav__link">
+    send_data_to_device
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data_root" title="data_root" class="md-nav__link">
+    data_root
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#num_workers" title="num_workers" class="md-nav__link">
+    num_workers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch_size" title="batch_size" class="md-nav__link">
+    batch_size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paper_model_name" title="paper_model_name" class="md-nav__link">
+    paper_model_name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paper_arxiv_id" title="paper_arxiv_id" class="md-nav__link">
+    paper_arxiv_id
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paper_pwc_id" title="paper_pwc_id" class="md-nav__link">
+    paper_pwc_id
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paper_results" title="paper_results" class="md-nav__link">
+    paper_results
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pytorch_hub_url" title="pytorch_hub_url" class="md-nav__link">
+    pytorch_hub_url
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#need-more-help" title="Need More Help?" class="md-nav__link">
+    Need More Help?
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../pascalvoc/" title="PASCAL VOC 2012" class="md-nav__link">
+      PASCAL VOC 2012
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" title="Getting Started" class="md-nav__link">
+    Getting Started
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-imagenet-evaluation-class" title="The ImageNet Evaluation Class" class="md-nav__link">
+    The ImageNet Evaluation Class
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-full-sotabenchpy-example" title="A full sotabench.py example" class="md-nav__link">
+    A full sotabench.py example
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#imagenetbenchmark-arguments" title="ImageNet.benchmark() Arguments" class="md-nav__link">
+    ImageNet.benchmark() Arguments
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#model" title="model" class="md-nav__link">
+    model
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model_description" title="model_description" class="md-nav__link">
+    model_description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#input_transform" title="input_transform" class="md-nav__link">
+    input_transform
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#target_transform" title="target_transform" class="md-nav__link">
+    target_transform
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model_output_transform" title="model_output_transform" class="md-nav__link">
+    model_output_transform
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#send_data_to_device" title="send_data_to_device" class="md-nav__link">
+    send_data_to_device
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data_root" title="data_root" class="md-nav__link">
+    data_root
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#num_workers" title="num_workers" class="md-nav__link">
+    num_workers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch_size" title="batch_size" class="md-nav__link">
+    batch_size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paper_model_name" title="paper_model_name" class="md-nav__link">
+    paper_model_name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paper_arxiv_id" title="paper_arxiv_id" class="md-nav__link">
+    paper_arxiv_id
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paper_pwc_id" title="paper_pwc_id" class="md-nav__link">
+    paper_pwc_id
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paper_results" title="paper_results" class="md-nav__link">
+    paper_results
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pytorch_hub_url" title="pytorch_hub_url" class="md-nav__link">
+    pytorch_hub_url
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#need-more-help" title="Need More Help?" class="md-nav__link">
+    Need More Help?
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="imagenet">ImageNet</h1>
+<p><img alt="ImageNet Dataset Examples" src="../img/imagenet.jpeg" /></p>
+<p>You can view the ImageNet leaderboard <a href="https://sotabench.com/benchmarks/image-classification-on-imagenet">here</a>.</p>
+<h2 id="getting-started">Getting Started</h2>
+<p>You'll need the following in the root of your repository:</p>
+<ul>
+<li><code>sotabench.py</code> file - contains benchmarking logic; the server will run this on each commit</li>
+<li><code>requirements.txt</code> file - Python dependencies to be installed before running <code>sotabench.py</code></li>
+<li><code>sotabench_setup.sh</code> <em>(optional)</em> - any advanced dependencies or setup, e.g. compilation</li>
+</ul>
+<p>Once you connect your repository to <a href="https://www.sotabench.com">sotabench.com</a>, the platform 
+will run your <code>sotabench.py</code> file whenever you commit to master. </p>
+<p>We now show how to write the <code>sotabench.py</code> file to evaluate a PyTorch object model with
+the torchbench library, and to allow your results to be recorded and reported for the community.</p>
+<h2 id="the-imagenet-evaluation-class">The ImageNet Evaluation Class</h2>
+<p>You can import the evaluation class from the following module:</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">torchbench.image_classification</span> <span class="kn">import</span> <span class="n">ImageNet</span>
+</pre></div>
+
+
+<p>The <code>ImageNet</code> class contains several components used in the evaluation, such as the <code>dataset</code>:</p>
+<div class="codehilite"><pre><span></span><span class="n">ImageNet</span><span class="o">.</span><span class="n">dataset</span>
+<span class="c1"># torchvision.datasets.ImageNet</span>
+</pre></div>
+
+
+<p>And some default arguments used for evaluation (which can be overridden):</p>
+<div class="codehilite"><pre><span></span><span class="n">ImageNet</span><span class="o">.</span><span class="n">normalize</span>
+<span class="c1"># Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])</span>
+
+<span class="n">ImageNet</span><span class="o">.</span><span class="n">input_transform</span>
+<span class="c1"># Compose(</span>
+<span class="c1">#   Resize(size=256, interpolation=PIL.Image.BILINEAR)</span>
+<span class="c1">#   CenterCrop(size=(224, 224))</span>
+<span class="c1">#   ToTensor()</span>
+<span class="c1">#   Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])</span>
+<span class="c1"># )</span>
+
+<span class="n">ImageNet</span><span class="o">.</span><span class="n">send_data_to_device</span>
+<span class="c1"># &lt;function torchbench.utils.default_data_to_device&gt;</span>
+</pre></div>
+
+
+<p>We will explain these different options shortly and how you can manipulate them to get the
+evaluation logic to play nicely with your model.</p>
+<p>An evaluation call - which performs evaluation, and if on the sotabench.com server, saves the results - 
+looks like the following through the <code>benchmark()</code> method:</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">torchvision.models.resnet</span> <span class="kn">import</span> <span class="n">resnext101_32x8d</span>
+
+<span class="n">ImageNet</span><span class="o">.</span><span class="n">benchmark</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">resnext101_32x8d</span><span class="p">(</span><span class="n">pretrained</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>
+    <span class="n">paper_model_name</span><span class="o">=</span><span class="s1">&#39;ResNeXt-101-32x8d&#39;</span><span class="p">,</span>
+    <span class="n">paper_arxiv_id</span><span class="o">=</span><span class="s1">&#39;1611.05431&#39;</span>
+<span class="p">)</span>
+</pre></div>
+
+
+<p>These are the key arguments: the <code>model</code> which is a usually a <code>nn.Module</code> type object, but more generally,
+is any method with a <code>forward</code> method that takes in input data and outputs predictions.
+<code>paper_model_name</code> refers to the name of the model and <code>paper_arxiv_id</code> (optionally) refers to 
+the paper from which the model originated. If these two arguments match a record paper result,
+then sotabench.com will match your model with the paper and compare your code's results with the
+reported results in the paper.</p>
+<h2 id="a-full-sotabenchpy-example">A full <code>sotabench.py</code> example</h2>
+<p>Below shows an example for the <a href="https://github.com/pytorch/vision/tree/master/torchvision">torchvision</a> 
+repository benchmarking a ResNeXt-101-32x8d model:</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">torchbench.image_classification</span> <span class="kn">import</span> <span class="n">ImageNet</span>
+<span class="kn">from</span> <span class="nn">torchvision.models.resnet</span> <span class="kn">import</span> <span class="n">resnext101_32x8d</span>
+<span class="kn">import</span> <span class="nn">torchvision.transforms</span> <span class="kn">as</span> <span class="nn">transforms</span>
+<span class="kn">import</span> <span class="nn">PIL</span>
+
+<span class="c1"># Define the transforms need to convert ImageNet data to expected</span>
+<span class="c1"># model input</span>
+<span class="n">normalize</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span>
+    <span class="n">mean</span><span class="o">=</span><span class="p">[</span><span class="mf">0.485</span><span class="p">,</span> <span class="mf">0.456</span><span class="p">,</span> <span class="mf">0.406</span><span class="p">],</span> <span class="n">std</span><span class="o">=</span><span class="p">[</span><span class="mf">0.229</span><span class="p">,</span> <span class="mf">0.224</span><span class="p">,</span> <span class="mf">0.225</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">input_transform</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">([</span>
+    <span class="n">transforms</span><span class="o">.</span><span class="n">Resize</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="n">PIL</span><span class="o">.</span><span class="n">Image</span><span class="o">.</span><span class="n">BICUBIC</span><span class="p">),</span>
+    <span class="n">transforms</span><span class="o">.</span><span class="n">CenterCrop</span><span class="p">(</span><span class="mi">224</span><span class="p">),</span>
+    <span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">(),</span>
+    <span class="n">normalize</span><span class="p">,</span>
+<span class="p">])</span>
+
+<span class="c1"># Run the benchmark</span>
+<span class="n">ImageNet</span><span class="o">.</span><span class="n">benchmark</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">resnext101_32x8d</span><span class="p">(</span><span class="n">pretrained</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>
+    <span class="n">paper_model_name</span><span class="o">=</span><span class="s1">&#39;ResNeXt-101-32x8d&#39;</span><span class="p">,</span>
+    <span class="n">paper_arxiv_id</span><span class="o">=</span><span class="s1">&#39;1611.05431&#39;</span><span class="p">,</span>
+    <span class="n">input_transform</span><span class="o">=</span><span class="n">input_transform</span><span class="p">,</span>
+    <span class="n">batch_size</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span>
+    <span class="n">num_gpu</span><span class="o">=</span><span class="mi">1</span>
+<span class="p">)</span>
+</pre></div>
+
+
+<h2 id="imagenetbenchmark-arguments"><code>ImageNet.benchmark()</code> Arguments</h2>
+<p>The source code for the ImageNet evaluation method can be found <a href="https://github.com/paperswithcode/torchbench/blob/develop/torchbench/image_classification/imagenet.py">here</a>.
+We now explain each argument.</p>
+<h3 id="model">model</h3>
+<p><strong>a PyTorch module, (e.g. a <code>nn.Module</code> object), that takes in ImageNet data and outputs detections.</strong></p>
+<p>For example, from the torchvision repository:</p>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">torchvision.models.resnet</span> <span class="kn">import</span> <span class="n">resnext101_32x8d</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">resnext101_32x8d</span><span class="p">(</span><span class="n">pretrained</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="model_description">model_description</h3>
+<p><strong>(str, optional): Optional model description.</strong></p>
+<p>For example:</p>
+<div class="codehilite"><pre><span></span><span class="n">model_description</span> <span class="o">=</span> <span class="s1">&#39;Using ported TensorFlow weights&#39;</span>
+</pre></div>
+
+
+<h3 id="input_transform">input_transform</h3>
+<p><strong>Composing the transforms used to transform the input data (the images), e.g. 
+resizing (e.g <code>transforms.Resize</code>), center cropping, to tensor transformations and normalization.</strong></p>
+<p>For example:</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">torchvision.transforms</span> <span class="kn">as</span> <span class="nn">transforms</span>
+<span class="n">normalize</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span>
+    <span class="n">mean</span><span class="o">=</span><span class="p">[</span><span class="mf">0.485</span><span class="p">,</span> <span class="mf">0.456</span><span class="p">,</span> <span class="mf">0.406</span><span class="p">],</span> <span class="n">std</span><span class="o">=</span><span class="p">[</span><span class="mf">0.229</span><span class="p">,</span> <span class="mf">0.224</span><span class="p">,</span> <span class="mf">0.225</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">input_transform</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">([</span>
+    <span class="n">transforms</span><span class="o">.</span><span class="n">Resize</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="n">PIL</span><span class="o">.</span><span class="n">Image</span><span class="o">.</span><span class="n">BICUBIC</span><span class="p">),</span>
+    <span class="n">transforms</span><span class="o">.</span><span class="n">CenterCrop</span><span class="p">(</span><span class="mi">224</span><span class="p">),</span>
+    <span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">(),</span>
+    <span class="n">normalize</span><span class="p">,</span>
+<span class="p">])</span>
+</pre></div>
+
+
+<h3 id="target_transform">target_transform</h3>
+<p><strong>Composing the transforms used to transform the target data</strong></p>
+<h3 id="model_output_transform">model_output_transform</h3>
+<p><strong>(callable, optional): An optional function
+                that takes in model output (after being passed through your
+                <code>model</code> forward pass) and transforms it. Afterwards, the
+                output will be passed into an evaluation function.</strong></p>
+<p>The model output transform is a function that you can pass in to transform the model output
+after the data has been passed into the model. This is useful if you have to do further 
+processing steps after inference to get the predictions in the right format for evaluation.</p>
+<p>Most PyTorch models for Image Classification on ImageNet don't need to use this argument.</p>
+<p>The model evaluation for each batch is as follows from <a href="https://github.com/paperswithcode/torchbench/blob/db9fbdf5567350b8316336ca4f3fd27a04999347/torchbench/image_classification/utils.py#L189">utils.py</a> 
+are:</p>
+<div class="codehilite"><pre><span></span><span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">iterator</span><span class="p">):</span>
+
+        <span class="nb">input</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">send_data_to_device</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">model_output_transform</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="n">model_output_transform</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">)</span>
+
+        <span class="n">check_metric_inputs</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">test_loader</span><span class="o">.</span><span class="n">dataset</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+        <span class="n">prec1</span><span class="p">,</span> <span class="n">prec5</span> <span class="o">=</span> <span class="n">accuracy</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">topk</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+</pre></div>
+
+
+<p>Model output (following <code>model.forward()</code> and optionally <code>model_output_transform</code>) should be a 2D 
+<code>torch.Tensor</code> containing the model output; first dimension should be output for each example 
+(length batch_size) and second dimension should be output for each class in ImageNet (length 1000).</p>
+<h3 id="send_data_to_device">send_data_to_device</h3>
+<p><strong>An optional function specifying how the model is sent to a device</strong></p>
+<p>As an example the default is:</p>
+<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">default_data_to_device</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">device</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;cuda&quot;</span><span class="p">,</span> <span class="n">non_blocking</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="bp">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Sends data output from a PyTorch Dataloader to the device.&quot;&quot;&quot;</span>
+
+    <span class="nb">input</span> <span class="o">=</span> <span class="nb">input</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">non_blocking</span><span class="o">=</span><span class="n">non_blocking</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">target</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">target</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">non_blocking</span><span class="o">=</span><span class="n">non_blocking</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="nb">input</span><span class="p">,</span> <span class="n">target</span>
+</pre></div>
+
+
+<h3 id="data_root">data_root</h3>
+<p><strong>data_root (str): The location of the ImageNet dataset - change this
+                parameter when evaluating locally if your ImageNet data is
+                located in a different folder (or alternatively if you want to
+                download to an alternative location).</strong></p>
+<p>Note that this parameter will be overriden when the evaluation is performed on the server,
+so it is solely for your local use.</p>
+<h3 id="num_workers">num_workers</h3>
+<p><strong>num_workers (int): The number of workers to use for the DataLoader.</strong></p>
+<h3 id="batch_size">batch_size</h3>
+<p><strong>batch_size (int) : The batch_size to use for evaluation; if you get
+                memory errors, then reduce this (half each time) until your
+                model fits onto the GPU.</strong></p>
+<h3 id="paper_model_name">paper_model_name</h3>
+<p><strong>paper_model_name (str, optional): The name of the model from the
+    paper - if you want to link your build to a machine learning
+    paper. See the ImageNet benchmark page for model names,
+    https://sotabench.com/benchmarks/image-classification-on-imagenet, e.g. on the paper
+    leaderboard tab.</strong></p>
+<h3 id="paper_arxiv_id">paper_arxiv_id</h3>
+<p><strong>paper_arxiv_id (str, optional): Optional linking to ArXiv if you
+    want to link to papers on the leaderboard; put in the
+    corresponding paper's ArXiv ID, e.g. '1611.05431'.</strong></p>
+<h3 id="paper_pwc_id">paper_pwc_id</h3>
+<p><strong>paper_pwc_id (str, optional): Optional linking to Papers With Code;
+    put in the corresponding papers with code URL slug, e.g.
+    'u-gat-it-unsupervised-generative-attentional'</strong></p>
+<h3 id="paper_results">paper_results</h3>
+<p><strong>paper_results (dict, optional) : If the paper you are reproducing
+    does not have model results on sotabench.com, you can specify
+    the paper results yourself through this argument, where keys
+    are metric names, values are metric values. e.g:</strong></p>
+<div class="codehilite"><pre><span></span><span class="p">{</span><span class="s1">&#39;Top 1 Accuracy&#39;</span><span class="p">:</span> <span class="mf">0.543</span><span class="p">,</span> <span class="s1">&#39;Top 5 Accuracy&#39;</span><span class="p">:</span> <span class="mf">0.654</span><span class="p">}</span>
+</pre></div>
+
+
+<p>Ensure that the metric names match those on the sotabench
+leaderboard - for ImageNet it should be 'Top 1 Accuracy', 
+'Top 5 Accuracy'</p>
+<h3 id="pytorch_hub_url">pytorch_hub_url</h3>
+<p><strong>pytorch_hub_url (str, optional): Optional linking to PyTorch Hub
+    url if your model is linked there; e.g:
+    'nvidia_deeplearningexamples_waveglow'.</strong></p>
+<h2 id="need-more-help">Need More Help?</h2>
+<p>Head on over to the <a href="https://forum.sotabench.com/c/cv">Computer Vision</a> section of the sotabench
+forums if you have any questions or difficulties.</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../coco/" title="COCO" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                COCO
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../pascalvoc/" title="PASCAL VOC 2012" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                PASCAL VOC 2012
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.245445c6.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+      
+    
+  </body>
+</html>
