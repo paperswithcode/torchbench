@@ -2,7 +2,7 @@
 
 <img src="img/torchbench.png" width=500>
 
-You have reached the docs for the [torchbench](https://github.com/paperswithcode/torchbench] library. This library contains a collection of deep learning benchmarks you can use to
+You have reached the docs for the [torchbench](https://github.com/paperswithcode/torchbench) library. This library contains a collection of deep learning benchmarks you can use to
 benchmark your models, optimized for the PyTorch framework. It can be used in conjunction with the 
 [sotabench.com](http://www.sotabench.com) website to record results for models, so the community
 can compare model performance on different tasks, as well as a continuous integration style
