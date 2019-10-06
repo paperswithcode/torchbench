@@ -72,6 +72,7 @@ def evaluate_classification(
             end = time.time()
 
     memory_allocated = torch.cuda.max_memory_allocated(device=device)
+    torch.cuda.reset_max_memory_allocated(device=device)
 
     speed_mem_metrics = {
         'Tasks Per Second (Total)': test_loader.batch_size/inference_time.avg,
