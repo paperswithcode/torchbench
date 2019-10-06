@@ -16,5 +16,5 @@ class Version:
         )
 
 
-version = Version(0, 0, 26)
+version = Version(0, 0, 27)
 __version__ = str(version)
