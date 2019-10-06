@@ -42,8 +42,7 @@ def evaluate_classification(
 
             if i == 5:  # for sotabench.com caching of evaluation
                 memory_allocated = torch.cuda.memory_allocated(device=device)
-                tasks_per_second = test_loader.batch_size*inference_time.avg
-                run_hash = calculate_run_hash([prec1, prec5, np.round(tasks_per_second, 1)], output)
+                run_hash = calculate_run_hash([prec1, prec5], output)
                 # if we are in check model we don't need to go beyond the first
                 # batch
                 if in_check_mode():
