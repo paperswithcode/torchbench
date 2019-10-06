@@ -159,7 +159,7 @@ def evaluate_segmentation(
             confmat.update(target, output)
 
             if i == 0:  # for sotabench.com caching of evaluation
-                memory_allocated = torch.cuda.memory_allocated(device=device)
+                partial_memory_allocated = torch.cuda.max_memory_allocated(device=device)
                 partial_tps = test_loader.batch_size / inference_time.avg
                 run_hash = calculate_run_hash([], output)
                 # if we are in check model we don't need to go beyond the first
@@ -181,7 +181,8 @@ def evaluate_segmentation(
                     speed_mem_metrics = {
                         'Tasks Per Second (Partial)': partial_tps,
                         'Tasks Per Second (Total)': None,
-                        'Memory Allocated': memory_allocated
+                        'Memory Allocated (Partial)': None,
+                        'Memory Allocated (Partial)': partial_memory_allocated
                     }
 
                     return cached_res, speed_mem_metrics, run_hash
@@ -190,10 +191,13 @@ def evaluate_segmentation(
 
     acc_global, acc, iu = confmat.compute()
 
+    memory_allocated = torch.cuda.max_memory_allocated(device=device)
+
     speed_mem_metrics = {
         'Tasks Per Second (Total)': test_loader.batch_size/inference_time.avg,
         'Tasks Per Second (Partial)': partial_tps,
-        'Memory Allocated': memory_allocated
+        'Max Memory Allocated (Total)': memory_allocated,
+        'Max Memory Allocated (Partial)': partial_memory_allocated,
     }
 
     return {
