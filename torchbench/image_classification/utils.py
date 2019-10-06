@@ -1,5 +1,6 @@
 import time
 
+import numpy as np
 import tqdm
 import torch
 import torchvision
@@ -16,19 +17,20 @@ def evaluate_classification(
     send_data_to_device,
     device="cuda",
 ):
-    batch_time = AverageMeter()
+    inference_time = AverageMeter()
     top1 = AverageMeter()
     top5 = AverageMeter()
+    iterator = tqdm.tqdm(test_loader, desc="Evaluation", mininterval=5)
 
     end = time.time()
-
-    iterator = tqdm.tqdm(test_loader, desc="Evaluation", mininterval=5)
 
     with torch.no_grad():
         for i, (input, target) in enumerate(iterator):
 
             input, target = send_data_to_device(input, target, device=device)
             output = model(input)
+
+            inference_time.update(time.time() - end)
 
             if model_output_transform is not None:
                 output = model_output_transform(output, target, model=model)
@@ -37,11 +39,11 @@ def evaluate_classification(
             prec1, prec5 = accuracy(output, target, topk=(1, 5))
             top1.update(prec1.item(), input.size(0))
             top5.update(prec5.item(), input.size(0))
-            batch_time.update(time.time() - end)
-            end = time.time()
 
-            if i == 0:  # for sotabench.com caching of evaluation
-                run_hash = calculate_run_hash([prec1, prec5], output)
+            if i == 5:  # for sotabench.com caching of evaluation
+                memory_allocated = torch.cuda.memory_allocated(device=device)
+                tasks_per_second = test_loader.batch_size*inference_time.avg
+                run_hash = calculate_run_hash([prec1, prec5, np.round(tasks_per_second, 1)], output)
                 # if we are in check model we don't need to go beyond the first
                 # batch
                 if in_check_mode():
@@ -59,8 +61,13 @@ def evaluate_classification(
                     )
                     return cached_res, run_hash
 
+            end = time.time()
+
     return (
-        {"Top 1 Accuracy": top1.avg / 100, "Top 5 Accuracy": top5.avg / 100},
+        {"Top 1 Accuracy": top1.avg / 100,
+         "Top 5 Accuracy": top5.avg / 100,
+         'Tasks Per Second': test_loader.batch_size/inference_time.avg,
+         'Memory Allocated': memory_allocated},
         run_hash,
     )
 
