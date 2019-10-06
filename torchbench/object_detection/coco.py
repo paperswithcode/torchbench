@@ -217,7 +217,7 @@ class COCO:
             collate_fn=collate_fn,
         )
         test_loader.no_classes = 91  # Number of classes for COCO Detection
-        test_results, run_hash = evaluate_detection_coco(
+        test_results, speed_mem_metrics, run_hash = evaluate_detection_coco(
             model=model,
             test_loader=test_loader,
             model_output_transform=model_output_transform,
@@ -232,6 +232,7 @@ class COCO:
             config=config,
             dataset='COCO minival',
             results=test_results,
+            speed_mem_metrics=speed_mem_metrics,
             pytorch_hub_id=pytorch_hub_url,
             model=paper_model_name,
             model_description=model_description,

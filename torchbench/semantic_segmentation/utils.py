@@ -1,13 +1,14 @@
 import cv2
 import numpy as np
 import tqdm
+import time
 import torch
 from albumentations.core.transforms_interface import DualTransform
 from PIL import Image
 from sotabenchapi.check import in_check_mode
 from sotabenchapi.client import Client
 
-from torchbench.utils import calculate_run_hash
+from torchbench.utils import calculate_run_hash, AverageMeter
 
 
 def minmax_normalize(img, norm_range=(0, 1), orig_range=(0, 255)):
@@ -141,16 +142,24 @@ def evaluate_segmentation(
 ):
     confmat = ConfusionMatrix(test_loader.no_classes)
 
+    inference_time = AverageMeter()
+
     iterator = tqdm.tqdm(test_loader, desc="Evaluation", mininterval=5)
+
+    end = time.time()
 
     with torch.no_grad():
         for i, (input, target) in enumerate(iterator):
             input, target = send_data_to_device(input, target, device=device)
             output = model(input)
+
+            inference_time.update(time.time() - end)
+
             output, target = model_output_transform(output, target)
             confmat.update(target, output)
 
             if i == 0:  # for sotabench.com caching of evaluation
+                memory_allocated = torch.cuda.memory_allocated(device=device)
                 run_hash = calculate_run_hash([], output)
                 # if we are in check model we don't need to go beyond the first
                 # batch
@@ -169,9 +178,15 @@ def evaluate_segmentation(
                     )
                     return cached_res, run_hash
 
+            end = time.time()
+
     acc_global, acc, iu = confmat.compute()
+
+    speed_mem_metrics = {
+        'Tasks Per Second': test_loader.batch_size / inference_time.avg,
+        'Memory Allocated': memory_allocated}
 
     return {
         "Accuracy": acc_global.item(),
-        "Mean IOU": iu.mean().item(),
-    }, run_hash
+        "Mean IOU": iu.mean().item()}, \
+           speed_mem_metrics, run_hash

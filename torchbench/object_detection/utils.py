@@ -6,11 +6,12 @@ import torch
 import torchvision
 from sotabenchapi.check import in_check_mode
 from sotabenchapi.client import Client
+import time
 
 from pycocotools import mask as coco_mask
 from pycocotools.coco import COCO
 
-from torchbench.utils import calculate_run_hash
+from torchbench.utils import calculate_run_hash, AverageMeter
 from torchbench.datasets import CocoDetection
 
 from .coco_eval import CocoEvaluator
@@ -198,20 +199,28 @@ def evaluate_detection_coco(
     iou_types = ['bbox']
     coco_evaluator = CocoEvaluator(coco, iou_types)
 
+    inference_time = AverageMeter()
+
     iterator = tqdm.tqdm(test_loader, desc="Evaluation", mininterval=5)
+
+    end = time.time()
 
     with torch.no_grad():
         for i, (input, target) in enumerate(iterator):
             input, target = send_data_to_device(input, target, device=device)
             original_output = model(input)
+
+            inference_time.update(time.time() - end)
+
             output, target = model_output_transform(original_output, target)
+
             result = {
                 tar["image_id"].item(): out for tar, out in zip(target, output)
             }
             coco_evaluator.update(result)
 
-
             if i == 0:  # for sotabench.com caching of evaluation
+                memory_allocated = torch.cuda.memory_allocated(device=device)
                 run_hash = calculate_run_hash([], original_output)
                 # if we are in check model we don't need to go beyond the first
                 # batch
@@ -230,11 +239,17 @@ def evaluate_detection_coco(
                     )
                     return cached_res, run_hash
 
+            end = time.time()
+
     coco_evaluator.synchronize_between_processes()
     coco_evaluator.accumulate()
     coco_evaluator.summarize()
 
-    return (get_coco_metrics(coco_evaluator), run_hash)
+    device_metrics = {
+        'Tasks Per Second': test_loader.batch_size/inference_time.avg,
+        'Memory Allocated': memory_allocated}
+
+    return (get_coco_metrics(coco_evaluator), device_metrics, run_hash)
 
 
 def evaluate_detection_voc(

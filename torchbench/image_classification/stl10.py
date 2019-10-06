@@ -63,7 +63,7 @@ class STL10:
             num_workers=num_workers,
             pin_memory=True,
         )
-        test_results, run_hash = evaluate_classification(
+        test_results, speed_mem_metrics, run_hash = evaluate_classification(
             model=model,
             test_loader=test_loader,
             model_output_transform=model_output_transform,
@@ -83,6 +83,7 @@ class STL10:
             config=config,
             dataset=cls.dataset.__name__,
             results=test_results,
+            speed_mem_metrics=speed_mem_metrics,
             pytorch_hub_id=pytorch_hub_url,
             model=paper_model_name,
             model_description=model_description,
