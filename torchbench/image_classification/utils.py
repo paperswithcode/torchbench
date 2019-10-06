@@ -40,7 +40,7 @@ def evaluate_classification(
             top1.update(prec1.item(), input.size(0))
             top5.update(prec5.item(), input.size(0))
 
-            if i == 5:  # for sotabench.com caching of evaluation
+            if i == 0:  # for sotabench.com caching of evaluation
                 memory_allocated = torch.cuda.memory_allocated(device=device)
                 run_hash = calculate_run_hash([prec1, prec5], output)
                 # if we are in check model we don't need to go beyond the first

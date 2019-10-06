@@ -158,7 +158,7 @@ def evaluate_segmentation(
             output, target = model_output_transform(output, target)
             confmat.update(target, output)
 
-            if i == 5:  # for sotabench.com caching of evaluation
+            if i == 0:  # for sotabench.com caching of evaluation
                 memory_allocated = torch.cuda.memory_allocated(device=device)
                 run_hash = calculate_run_hash([], output)
                 # if we are in check model we don't need to go beyond the first

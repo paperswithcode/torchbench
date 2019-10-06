@@ -219,7 +219,7 @@ def evaluate_detection_coco(
             }
             coco_evaluator.update(result)
 
-            if i == 5:  # for sotabench.com caching of evaluation
+            if i == 0:  # for sotabench.com caching of evaluation
                 memory_allocated = torch.cuda.memory_allocated(device=device)
                 run_hash = calculate_run_hash([], original_output)
                 # if we are in check model we don't need to go beyond the first
