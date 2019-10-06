@@ -182,8 +182,11 @@ def evaluate_segmentation(
 
     acc_global, acc, iu = confmat.compute()
 
+    speed_mem_metrics = {
+        'Tasks Per Second': test_loader.batch_size / inference_time.avg,
+        'Memory Allocated': memory_allocated}
+
     return {
         "Accuracy": acc_global.item(),
-        "Mean IOU": iu.mean().item(),
-        'Tasks Per Second': test_loader.batch_size / inference_time.avg,
-        'Memory Allocated': memory_allocated}, run_hash
+        "Mean IOU": iu.mean().item()}, \
+           speed_mem_metrics, run_hash

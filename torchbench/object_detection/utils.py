@@ -249,7 +249,7 @@ def evaluate_detection_coco(
         'Tasks Per Second': test_loader.batch_size/inference_time.avg,
         'Memory Allocated': memory_allocated}
 
-    return ({**get_coco_metrics(coco_evaluator), **device_metrics}, run_hash)
+    return (get_coco_metrics(coco_evaluator), device_metrics, run_hash)
 
 
 def evaluate_detection_voc(

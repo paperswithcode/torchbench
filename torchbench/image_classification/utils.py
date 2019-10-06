@@ -62,11 +62,14 @@ def evaluate_classification(
 
             end = time.time()
 
+    speed_mem_metrics = {
+        'Tasks Per Second': test_loader.batch_size/inference_time.avg,
+        'Memory Allocated': memory_allocated
+    }
+
     return (
         {"Top 1 Accuracy": top1.avg / 100,
-         "Top 5 Accuracy": top5.avg / 100,
-         'Tasks Per Second': test_loader.batch_size/inference_time.avg,
-         'Memory Allocated': memory_allocated},
+         "Top 5 Accuracy": top5.avg / 100}, speed_mem_metrics,
         run_hash,
     )
 

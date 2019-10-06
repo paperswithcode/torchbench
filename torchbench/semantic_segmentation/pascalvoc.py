@@ -130,7 +130,7 @@ class PASCALVOC:
             collate_fn=collate_fn,
         )
         test_loader.no_classes = 21  # Number of classes for PASCALVOC
-        test_results, run_hash = evaluate_segmentation(
+        test_results, speed_mem_metrics, run_hash = evaluate_segmentation(
             model=model,
             test_loader=test_loader,
             model_output_transform=model_output_transform,
@@ -144,6 +144,7 @@ class PASCALVOC:
             config=config,
             dataset='PASCAL VOC %s %s' % (dataset_year, "val"),
             results=test_results,
+            speed_mem_metrics=speed_mem_metrics,
             pytorch_hub_id=pytorch_hub_url,
             model=paper_model_name,
             model_description=model_description,
