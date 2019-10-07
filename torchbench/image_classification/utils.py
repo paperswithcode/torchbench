@@ -75,10 +75,11 @@ def evaluate_classification(
     torch.cuda.reset_max_memory_allocated(device=device)
 
     speed_mem_metrics = {
-        'Tasks Per Second (Total)': test_loader.batch_size/inference_time.avg,
+        'Tasks Per Second (Total)': test_loader.batch_size / inference_time.avg,
         'Tasks Per Second (Partial)': partial_tps,
         'Max Memory Allocated (Total)': memory_allocated,
         'Max Memory Allocated (Partial)': partial_memory_allocated,
+        'Evaluation Time': test_loader.batch_size / inference_time.avg,
     }
 
     return (
