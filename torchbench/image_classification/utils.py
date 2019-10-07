@@ -17,20 +17,17 @@ def evaluate_classification(
     send_data_to_device,
     device="cuda",
 ):
-    inference_time = AverageMeter()
     top1 = AverageMeter()
     top5 = AverageMeter()
     iterator = tqdm.tqdm(test_loader, desc="Evaluation", mininterval=5)
 
-    end = time.time()
+    init_time = time.time()
 
     with torch.no_grad():
         for i, (input, target) in enumerate(iterator):
 
             input, target = send_data_to_device(input, target, device=device)
             output = model(input)
-
-            inference_time.update(time.time() - end)
 
             if model_output_transform is not None:
                 output = model_output_transform(output, target, model=model)
@@ -41,8 +38,6 @@ def evaluate_classification(
             top5.update(prec5.item(), input.size(0))
 
             if i == 0:  # for sotabench.com caching of evaluation
-                partial_memory_allocated = torch.cuda.max_memory_allocated(device=device)
-                partial_tps = test_loader.batch_size / inference_time.avg
                 run_hash = calculate_run_hash([prec1, prec5], output)
                 # if we are in check model we don't need to go beyond the first
                 # batch
@@ -61,25 +56,24 @@ def evaluate_classification(
                     )
 
                     speed_mem_metrics = {
-                        'Tasks Per Second (Partial)': partial_tps,
-                        'Tasks Per Second (Total)': None,
-                        'Memory Allocated (Partial)': None,
-                        'Memory Allocated (Partial)': partial_memory_allocated
+                        'Tasks / Evaluation Time': None,
+                        'Evaluation Time': None,
+                        'Tasks': None,
+                        'Max Memory Allocated (Total)': None,
                     }
 
                     return cached_res, speed_mem_metrics, run_hash
 
-            end = time.time()
+    exec_time = (time.time() - init_time)
 
     memory_allocated = torch.cuda.max_memory_allocated(device=device)
     torch.cuda.reset_max_memory_allocated(device=device)
 
     speed_mem_metrics = {
-        'Tasks Per Second (Total)': test_loader.batch_size / inference_time.avg,
-        'Tasks Per Second (Partial)': partial_tps,
+        'Tasks / Evaluation Time': len(test_loader.dataset) / exec_time,
+        'Tasks': len(test_loader.dataset),
+        'Evaluation Time': (time.time() - init_time),
         'Max Memory Allocated (Total)': memory_allocated,
-        'Max Memory Allocated (Partial)': partial_memory_allocated,
-        'Evaluation Time': test_loader.batch_size / inference_time.avg,
     }
 
     return (
